@@ -4,7 +4,6 @@
   min-height: calc(100vh - 60px);
 }
 
-
 /* sidebar */
 
 .sidebar {
@@ -19,14 +18,21 @@
   flex-direction: column;
   justify-content: space-between;
   border-right: 2px solid #f1f1f1;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .sidebar.active {
   width: 103px;
   overflow: hidden;
 }
-
+.sidebar--items {
+  margin: 0;
+  padding: 0;
+}
+.sidebar--bottom-items {
+  margin: 0;
+  padding: 0;
+}
 .sidebar.active .sidebar--item {
   display: none;
 }
@@ -72,6 +78,7 @@ a {
   justify-content: center;
   margin-right: 20px;
   font-size: 1.3rem;
+  height: 27px;
 }
 
 .icon-0 {
@@ -80,6 +87,7 @@ a {
 
 .icon-1 {
   color: #c5bc58;
+  
 }
 
 .icon-2 {
@@ -110,7 +118,6 @@ a {
   color: #f1d243;
 }
 
-
 /* main--content */
 
 .main--content {
@@ -121,7 +128,7 @@ a {
   width: calc(100% - 300px);
   padding: 0 40px;
   overflow-y: scroll;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .main--content.active {
@@ -159,7 +166,7 @@ a {
   border-radius: 20px;
   min-width: 230px;
   height: auto;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .card:hover {
@@ -210,22 +217,21 @@ a {
 }
 
 .card-1 {
-  background-color: rgba(80, 115, 251, .1);
+  background-color: rgba(80, 115, 251, 0.1);
 }
-h5{
+h5 {
   font-size: 1rem;
 }
 .card-1 .card--title {
   color: rgba(80, 115, 251, 1);
-  
 }
 
 .card-1 .card--icon--lg {
-  color: rgba(80, 115, 251, .4);
+  color: rgba(80, 115, 251, 0.4);
 }
 
 .card-2 {
-  background-color: rgba(241, 210, 67, .1);
+  background-color: rgba(241, 210, 67, 0.1);
 }
 
 .card-2 .card--title {
@@ -233,11 +239,11 @@ h5{
 }
 
 .card-2 .card--icon--lg {
-  color: rgba(241, 210, 67, .4);
+  color: rgba(241, 210, 67, 0.4);
 }
 
 .card-3 {
-  background-color: rgba(112, 215, 165, .1);
+  background-color: rgba(112, 215, 165, 0.1);
 }
 
 .card-3 .card--title {
@@ -245,11 +251,11 @@ h5{
 }
 
 .card-3 .card--icon--lg {
-  color: rgba(112, 215, 165, .4);
+  color: rgba(112, 215, 165, 0.4);
 }
 
 .card-4 {
-  background-color: rgba(227, 106, 200, .1);
+  background-color: rgba(227, 106, 200, 0.1);
 }
 
 .card-4 .card--title {
@@ -257,9 +263,8 @@ h5{
 }
 
 .card-4 .card--icon--lg {
-  color: rgba(227, 106, 200, .4);
+  color: rgba(227, 106, 200, 0.4);
 }
-
 
 /* doctors */
 
@@ -279,7 +284,7 @@ h5{
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .add:hover {
@@ -303,12 +308,12 @@ h5{
   padding: 20px;
   border-radius: 20px;
   height: auto;
-  transition: .3s;
+  transition: 0.3s;
   border: 2px solid #f1f1f1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .doctor--card:hover {
@@ -338,7 +343,6 @@ h5{
 .scheduled {
   color: #00e77f;
 }
-
 
 /* recent--patients */
 
@@ -387,91 +391,90 @@ th {
   color: #e86786;
 }
 
-
 /* responsive starts here */
 
-@media screen and (max-width:1350px) {
+@media screen and (max-width: 1350px) {
   .cards,
   .doctors--cards {
-      overflow-x: scroll;
+    overflow-x: scroll;
   }
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width: 1024px) {
   table {
-      min-width: 600px;
+    min-width: 600px;
   }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .logo {
-      padding-left: 30px;
-      width: fit-content;
+    padding-left: 30px;
+    width: fit-content;
   }
   .search--notification--profile {
-      padding: 0 20px;
-      margin-left: auto;
+    padding: 0 20px;
+    margin-left: auto;
   }
   .main--content {
-      padding: 0 20px;
+    padding: 0 20px;
   }
   .sidebar {
-      padding: 20px;
+    padding: 20px;
   }
   .sidebar.active {
-      width: 85px;
+    width: 85px;
   }
   .main--content.active {
-      width: calc(100% - 85px);
+    width: calc(100% - 85px);
   }
 }
 
-@media screen and (max-width:590px) {
+@media screen and (max-width: 590px) {
   .search,
   .lock,
   .chat {
-      display: none;
+    display: none;
   }
   .notification--profile {
-      margin-left: auto;
+    margin-left: auto;
   }
   .search--notification--profile {
-      width: fit-content;
+    width: fit-content;
   }
   .sidebar {
-      transform: translateX(-100%);
-      z-index: 10;
-      background-color: #fff;
+    transform: translateX(-100%);
+    z-index: 10;
+    background-color: #fff;
   }
   .sidebar.active {
-      transform: translateX(0);
-      width: 300px;
+    transform: translateX(0);
+    width: 300px;
   }
   .sidebar.active .sidebar--item {
-      display: block;
+    display: block;
   }
   .main--content {
-      width: calc(100% - 0px);
+    width: calc(100% - 0px);
   }
   .main--content.active {
-      width: calc(100% - 0px);
+    width: calc(100% - 0px);
   }
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width: 450px) {
   .doctor--filter {
-      display: none;
+    display: none;
   }
   .main--content {
-      padding: 0 10px;
+    padding: 0 10px;
   }
   .logo {
-      padding-left: 10px;
+    padding-left: 10px;
   }
   .search--notification--profile {
-      padding: 0 10px;
+    padding: 0 10px;
   }
   .sidebar {
-      padding: 10px;
+    padding: 10px;
   }
 }

@@ -1,11 +1,20 @@
 import styles from "_Playground/SCSS/HomePage/OverView.module.scss";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "configStore";
 type Props = {};
 
 const OverView = (props: Props) => {
+  const { actionMenu } = useSelector((state: RootState) => state.actionMenu);
+  
   return (
     <section className={styles["main"]}>
-      <div className={`${styles.sidebar} `}>
+      <div
+        className={
+          actionMenu
+            ? `${styles.sidebar} ${styles.active}`
+            : `${styles.sidebar}`
+        }
+      >
         {/* ${styles.active} */}
         <ul className={styles["sidebar--items"]}>
           <li>
@@ -82,7 +91,13 @@ const OverView = (props: Props) => {
         </ul>
       </div>
 
-      <div className={styles["main--content"]}>
+      <div
+        className={
+          actionMenu
+            ? `${styles["main--content"]} ${styles.active}`
+            : `${styles["main--content"]}`
+        }
+      >
         <div className={styles["overview"]}>
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Overview</h2>
@@ -105,15 +120,28 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  <i
+                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                      styles[`stat--icon`]
+                    }`}
+                  />
                   65%
                 </span>
                 <span>
-                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  <i
+                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                      styles[`up--arrow`]
+                    }`}
+                  />
                   10
                 </span>
                 <span>
-                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
+                  <i
+                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                      styles[`down--arrow`]
+                    }`}
+                  />
+                  2
                 </span>
               </div>
             </div>
@@ -127,15 +155,28 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  <i
+                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                      styles[`stat--icon`]
+                    }`}
+                  />
                   65%
                 </span>
                 <span>
-                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  <i
+                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                      styles[`up--arrow`]
+                    }`}
+                  />
                   10
                 </span>
                 <span>
-                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
+                  <i
+                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                      styles[`down--arrow`]
+                    }`}
+                  />
+                  2
                 </span>
               </div>
             </div>
@@ -151,15 +192,28 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  <i
+                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                      styles[`stat--icon`]
+                    }`}
+                  />
                   65%
                 </span>
                 <span>
-                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  <i
+                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                      styles[`up--arrow`]
+                    }`}
+                  />
                   10
                 </span>
                 <span>
-                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
+                  <i
+                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                      styles[`down--arrow`]
+                    }`}
+                  />
+                  2
                 </span>
               </div>
             </div>
@@ -173,15 +227,28 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  <i
+                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                      styles[`stat--icon`]
+                    }`}
+                  />
                   65%
                 </span>
                 <span>
-                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  <i
+                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                      styles[`up--arrow`]
+                    }`}
+                  />
                   10
                 </span>
                 <span>
-                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
+                  <i
+                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                      styles[`down--arrow`]
+                    }`}
+                  />
+                  2
                 </span>
               </div>
             </div>
@@ -191,13 +258,17 @@ const OverView = (props: Props) => {
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Doctors</h2>
             <div className={styles["doctors--right--btns"]}>
-              <select name="date" id="date" className={`${styles.dropdown} ${styles[`doctor--filter`]}`}>
+              <select
+                name="date"
+                id="date"
+                className={`${styles.dropdown} ${styles[`doctor--filter`]}`}
+              >
                 <option>Filter</option>
                 <option value="free">Free</option>
                 <option value="scheduled">Scheduled</option>
               </select>
               <button className={styles["add"]}>
-              <i className="fa fa-plus"></i>
+                <i className="fa fa-plus"></i>
                 Add Doctor
               </button>
             </div>
@@ -265,7 +336,7 @@ const OverView = (props: Props) => {
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Recent Patients</h2>
             <button className={styles["add"]}>
-            <i className="fa fa-plus"></i>
+              <i className="fa fa-plus"></i>
               Add Doctor
             </button>
           </div>
@@ -290,12 +361,11 @@ const OverView = (props: Props) => {
                   <td className={styles["pending"]}>pending</td>
                   <td>
                     <span>
-                    <i className={`fa fa-edit ${styles.edit}`}></i>
-                    <i className={`fa fa-trash ${styles.delete}`}></i>
+                      <i className={`fa fa-edit ${styles.edit}`}></i>
+                      <i className={`fa fa-trash ${styles.delete}`}></i>
                     </span>
                   </td>
                 </tr>
- 
               </tbody>
             </table>
           </div>

@@ -6,12 +6,14 @@ interface State {
   movies: Movie[];
   isLoading: boolean;
   error: string | null;
+  actionMenu: boolean;
 }
 
 const initialState: State = {
   movies: [],
   isLoading: false,
   error: null,
+  actionMenu: false,
 };
 
 // thunk actions
@@ -22,7 +24,7 @@ export const getMovieShowing = createAsyncThunk(
       const data = await movieAPI.getMovieShowing();
       return data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 );
@@ -30,7 +32,11 @@ export const getMovieShowing = createAsyncThunk(
 const movieSlice = createSlice({
   name: "movie",
   initialState,
-  reducers: {},
+  reducers: {
+    ActionMenu: (state, { payload }) => {
+      state.actionMenu = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getMovieShowing.pending, (state) => {
       state.isLoading = true;
@@ -46,7 +52,7 @@ const movieSlice = createSlice({
   },
 });
 
-// export actions
-
+// export actions 
+export const  { ActionMenu } = movieSlice.actions;
 // export reducer
 export default movieSlice.reducer;

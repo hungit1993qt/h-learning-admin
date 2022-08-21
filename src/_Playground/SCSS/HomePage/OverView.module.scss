@@ -181,24 +181,24 @@ a {
 }
 
 .card h1 {
-  font-size: 30px;
-  margin-top: 10px;
+  font-size: 1.5rem;
+  margin-top: 6px;
 }
 
 .card--icon--lg {
-  font-size: 80px;
+  font-size: 3.2rem;
 }
 
 .card--stats {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 5px;
 }
 
 .card--stats span {
   display: flex;
   align-items: center;
+  font-size: 0.8rem;
 }
 
 .card--icon {
@@ -221,7 +221,7 @@ a {
   background-color: rgba(80, 115, 251, 0.1);
 }
 h5 {
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 .card-1 .card--title {
   color: rgba(80, 115, 251, 1);

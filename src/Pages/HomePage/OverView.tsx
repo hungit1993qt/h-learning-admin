@@ -22,7 +22,7 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-1"]}`}>
                 <i className="fa fa-th-large"></i>
               </span>
-              <span className={styles["sidebar--item"]}>TỔNG QUAN</span>
+              <span className={styles["sidebar--item"]}>Tổng Quan</span>
             </a>
           </li>
           {/* <li>
@@ -42,7 +42,7 @@ const OverView = (props: Props) => {
                 className={styles["sidebar--item"]}
                 style={{ whiteSpace: "nowrap" }}
               >
-                QUẢN LÝ NGƯỜI DÙNG
+                Quản lý học viên
               </span>
             </a>
           </li>
@@ -51,7 +51,7 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-4"]}`}>
                 <i className="fa fa-user-alt"></i>
               </span>
-              <span className={styles["sidebar--item"]}>QUẢN LÝ GIÁO VIÊN</span>
+              <span className={styles["sidebar--item"]}>Quản lý giáo viên</span>
             </a>
           </li>
           {/* <li>
@@ -100,7 +100,7 @@ const OverView = (props: Props) => {
       >
         <div className={styles["overview"]}>
           <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>TỔNG QUAN</h2>
+            <h2 className={styles["section--title"]}>Tổng Quan</h2>
             <select name="date" id="date" className={styles["dropdown"]}>
               <option value="today">Hôm nay</option>
               <option value="lastweek">Tuần trước</option>
@@ -373,6 +373,86 @@ const OverView = (props: Props) => {
         <div className={styles["recent--patients"]}>
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
+            <button className={styles["add"]}>
+              <i className="fa fa-plus"></i>
+              Thêm Học Viên
+            </button>
+          </div>
+          <div className={styles["table"]}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tài Khoản</th>
+                  <th>Mật Khẩu</th>
+                  <th>Họ Tên</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Cấp Bậc</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>hungit1993qt</td>
+                  <td>Hung1234</td>
+                  <td>Nguyễn Trần Hùng</td>
+                  <td>0999999999</td>
+                  <td className={styles["pending"]}>Học Viên</td>
+                  <td>hungit1993qt@gmail.com</td>
+                  <td>
+                    <span>
+                      <i className={`fa fa-edit ${styles.edit}`}></i>
+                      <i className={`fa fa-trash ${styles.delete}`}></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className={styles["recent--patients"]}>
+          <div className={styles["title"]}>
+            <h2 className={styles["section--title"]}>Danh Mục Khóa Học</h2>
+            <button className={styles["add"]}>
+              <i className="fa fa-plus"></i>
+              Thêm Học Viên
+            </button>
+          </div>
+          <div className={styles["table"]}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tài Khoản</th>
+                  <th>Mật Khẩu</th>
+                  <th>Họ Tên</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Cấp Bậc</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>hungit1993qt</td>
+                  <td>Hung1234</td>
+                  <td>Nguyễn Trần Hùng</td>
+                  <td>0999999999</td>
+                  <td className={styles["pending"]}>Học Viên</td>
+                  <td>hungit1993qt@gmail.com</td>
+                  <td>
+                    <span>
+                      <i className={`fa fa-edit ${styles.edit}`}></i>
+                      <i className={`fa fa-trash ${styles.delete}`}></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className={styles["recent--patients"]}>
+          <div className={styles["title"]}>
+            <h2 className={styles["section--title"]}>Danh Sách Khóa Học</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
               Thêm Học Viên

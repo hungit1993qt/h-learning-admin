@@ -105,15 +105,15 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className="ri-bar-chart-fill card--icon stat--icon" />
+                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
                   65%
                 </span>
                 <span>
-                  <i className="ri-arrow-up-s-fill card--icon up--arrow" />
+                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
                   10
                 </span>
                 <span>
-                  <i className="ri-arrow-down-s-fill card--icon down--arrow" />2
+                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
                 </span>
               </div>
             </div>
@@ -127,16 +127,15 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className="ri-bar-chart-fill card--icon stat--icon" />
-                  82%
+                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  65%
                 </span>
                 <span>
-                  <i className="ri-arrow-up-s-fill card--icon up--arrow" />
-                  230
+                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  10
                 </span>
                 <span>
-                  <i className="ri-arrow-down-s-fill card--icon down--arrow" />
-                  45
+                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
                 </span>
               </div>
             </div>
@@ -152,16 +151,15 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className="ri-bar-chart-fill card--icon stat--icon" />
-                  27%
+                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  65%
                 </span>
                 <span>
-                  <i className="ri-arrow-up-s-fill card--icon up--arrow" />
-                  31
+                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  10
                 </span>
                 <span>
-                  <i className="ri-arrow-down-s-fill card--icon down--arrow" />
-                  23
+                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
                 </span>
               </div>
             </div>
@@ -175,15 +173,15 @@ const OverView = (props: Props) => {
               </div>
               <div className={styles["card--stats"]}>
                 <span>
-                  <i className="ri-bar-chart-fill card--icon stat--icon" />
-                  8%
+                  <i className={`fa fa-chart-line ${styles[`card--icon`]} ${styles[`stat--icon`]}`} />
+                  65%
                 </span>
                 <span>
-                  <i className="ri-arrow-up-s-fill card--icon up--arrow" />
-                  11
+                  <i className={`fa fa-angle-up ${styles[`card--icon`]} ${styles[`up--arrow`]}`} />
+                  10
                 </span>
                 <span>
-                  <i className="ri-arrow-down-s-fill card--icon down--arrow" />2
+                  <i className={`fa fa-angle-down ${styles[`card--icon`]} ${styles[`down--arrow`]}`} />2
                 </span>
               </div>
             </div>
@@ -193,13 +191,13 @@ const OverView = (props: Props) => {
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Doctors</h2>
             <div className={styles["doctors--right--btns"]}>
-              <select name="date" id="date" className="dropdown doctor--filter">
+              <select name="date" id="date" className={`${styles.dropdown} ${styles[`doctor--filter`]}`}>
                 <option>Filter</option>
                 <option value="free">Free</option>
                 <option value="scheduled">Scheduled</option>
               </select>
               <button className={styles["add"]}>
-                <i className="ri-add-line" />
+              <i className="fa fa-plus"></i>
                 Add Doctor
               </button>
             </div>
@@ -267,7 +265,7 @@ const OverView = (props: Props) => {
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Recent Patients</h2>
             <button className={styles["add"]}>
-              <i className="ri-add-line" />
+            <i className="fa fa-plus"></i>
               Add Doctor
             </button>
           </div>
@@ -292,76 +290,12 @@ const OverView = (props: Props) => {
                   <td className={styles["pending"]}>pending</td>
                   <td>
                     <span>
-                      <i className="ri-edit-line edit" />
-                      <i className="ri-delete-bin-line delete" />
+                    <i className={`fa fa-edit ${styles.edit}`}></i>
+                    <i className={`fa fa-trash ${styles.delete}`}></i>
                     </span>
                   </td>
                 </tr>
-                <tr>
-                  <td>George Washington</td>
-                  <td>30/07/2022</td>
-                  <td>Male</td>
-                  <td>54kg</td>
-                  <td className={styles["confirmed"]}>Confirmed</td>
-                  <td>
-                    <span>
-                      <i className="ri-edit-line edit" />
-                      <i className="ri-delete-bin-line delete" />
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>John Adams</td>
-                  <td>29/07/2022</td>
-                  <td>Male</td>
-                  <td>56kg</td>
-                  <td className={styles["confirmed"]}>Confirmed</td>
-                  <td>
-                    <span>
-                      <i className="ri-edit-line edit" />
-                      <i className="ri-delete-bin-line delete" />
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Thomas Jefferson</td>
-                  <td>29/07/2022</td>
-                  <td>Male</td>
-                  <td>11kg</td>
-                  <td className={styles["rejected"]}>Rejected</td>
-                  <td>
-                    <span>
-                      <i className="ri-edit-line edit" />
-                      <i className="ri-delete-bin-line delete" />
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>James Madison</td>
-                  <td>29/07/2022</td>
-                  <td>Male</td>
-                  <td>69kg</td>
-                  <td className={styles["confirmed"]}>Confirmed</td>
-                  <td>
-                    <span>
-                      <i className="ri-edit-line edit" />
-                      <i className="ri-delete-bin-line delete" />
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Andrew Jackson</td>
-                  <td>28/07/2022</td>
-                  <td>Male</td>
-                  <td>88kg</td>
-                  <td className={styles["confirmed"]}>Confirmed</td>
-                  <td>
-                    <span>
-                      <i className="ri-edit-line edit" />
-                      <i className="ri-delete-bin-line delete" />
-                    </span>
-                  </td>
-                </tr>
+ 
               </tbody>
             </table>
           </div>

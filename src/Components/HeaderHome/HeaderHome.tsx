@@ -8,8 +8,8 @@ const HeaderHome = (props: Props) => {
     <>
       <section className={styles["header"]}>
         <div className={styles["logo"]}>
-          <i className={`fa fa-bars ${styles.icon} ${styles["icon-0"]} `} />
-          <h2>
+          <i className={`fa fa-bars ${styles.icon} ${styles["icon-0"]}`} />
+          <h2 className={styles["title-Logo"]}>
             Med<span className={styles.span}>Ex</span>
           </h2>
         </div>

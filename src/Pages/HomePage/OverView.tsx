@@ -22,17 +22,17 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-1"]}`}>
                 <i className="fa fa-th-large"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Dashboard</span>
+              <span className={styles["sidebar--item"]}>TỔNG QUAN</span>
             </a>
           </li>
-          <li>
+          {/* <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-2"]}`}>
                 <i className="fa fa-calendar-alt"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Schedule</span>
+              <span className={styles["sidebar--item"]}>QUẢN LÝ NGƯỜI DÙNG</span>
             </a>
-          </li>
+          </li> */}
           <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-3"]}`}>
@@ -42,7 +42,7 @@ const OverView = (props: Props) => {
                 className={styles["sidebar--item"]}
                 style={{ whiteSpace: "nowrap" }}
               >
-                Reliable Doctor
+                QUẢN LÝ NGƯỜI DÙNG
               </span>
             </a>
           </li>
@@ -51,10 +51,10 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-4"]}`}>
                 <i className="fa fa-user-alt"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Patients</span>
+              <span className={styles["sidebar--item"]}>QUẢN LÝ GIÁO VIÊN</span>
             </a>
           </li>
-          <li>
+          {/* <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-5"]}`}>
                 <i className="fa fa-chart-line"></i>
@@ -69,7 +69,7 @@ const OverView = (props: Props) => {
               </span>
               <span className={styles["sidebar--item"]}>Support</span>
             </a>
-          </li>
+          </li> */}
         </ul>
         <ul className={styles["sidebar--bottom-items"]}>
           <li>
@@ -77,7 +77,7 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-7"]}`}>
                 <i className="fa fa-cogs"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Settings</span>
+              <span className={styles["sidebar--item"]}>Cài đặt</span>
             </a>
           </li>
           <li>
@@ -85,7 +85,7 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-8"]}`}>
                 <i className="fa fa-sign-out-alt"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Logout</span>
+              <span className={styles["sidebar--item"]}>Đăng xuất</span>
             </a>
           </li>
         </ul>
@@ -100,20 +100,20 @@ const OverView = (props: Props) => {
       >
         <div className={styles["overview"]}>
           <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Overview</h2>
+            <h2 className={styles["section--title"]}>TỔNG QUAN</h2>
             <select name="date" id="date" className={styles["dropdown"]}>
-              <option value="today">Today</option>
-              <option value="lastweek">Last Week</option>
-              <option value="lastmonth">Last Month</option>
-              <option value="lastyear">Last Year</option>
-              <option value="alltime">All Time</option>
+              <option value="today">Hôm nay</option>
+              <option value="lastweek">Tuần trước</option>
+              <option value="lastmonth">Tháng trước</option>
+              <option value="lastyear">Năm trước</option>
+              <option value="alltime">Tất cả</option>
             </select>
           </div>
           <div className={styles["cards"]}>
             <div className={`${styles.card} ${styles[`card-1`]} `}>
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Total Doctors</h5>
+                  <h5 className={styles["card--title"]}>Số Lượng Giáo Viên</h5>
                   <h1>152</h1>
                 </div>
                 <i className={`fa fa-user ${styles[`card--icon--lg`]}`} />
@@ -148,7 +148,7 @@ const OverView = (props: Props) => {
             <div className={`${styles.card} ${styles[`card-2`]} `}>
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Total Patients</h5>
+                  <h5 className={styles["card--title"]}>Số Lượng Học Viên</h5>
                   <h1>1145</h1>
                 </div>
                 <i className={`fa fa-user-alt ${styles[`card--icon--lg`]}`} />
@@ -183,11 +183,11 @@ const OverView = (props: Props) => {
             <div className={`${styles.card} ${styles[`card-3`]} `}>
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Schedule</h5>
+                  <h5 className={styles["card--title"]}>Số Lượng Khóa Học</h5>
                   <h1>102</h1>
                 </div>
                 <i
-                  className={`fa fa-calendar-alt ${styles[`card--icon--lg`]}`}
+                  className={`fa fa-book-open ${styles[`card--icon--lg`]}`}
                 />
               </div>
               <div className={styles["card--stats"]}>
@@ -220,10 +220,10 @@ const OverView = (props: Props) => {
             <div className={`${styles.card} ${styles[`card-4`]} `}>
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Beds Available</h5>
+                  <h5 className={styles["card--title"]}>SL Khóa Học Đăng Ký</h5>
                   <h1>15</h1>
                 </div>
-                <i className={`fa fa-chart-line ${styles[`card--icon--lg`]}`} />
+                <i className={`fa fa-check ${styles[`card--icon--lg`]}`} />
               </div>
               <div className={styles["card--stats"]}>
                 <span>
@@ -254,7 +254,7 @@ const OverView = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className={styles["doctors"]}>
+        {/* <div className={styles["doctors"]}>
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Doctors</h2>
             <div className={styles["doctors--right--btns"]}>
@@ -331,13 +331,13 @@ const OverView = (props: Props) => {
               <p className={styles["scheduled"]}>Scheduled</p>
             </a>
           </div>
-        </div>
+        </div> */}
         <div className={styles["recent--patients"]}>
           <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Recent Patients</h2>
+            <h2 className={styles["section--title"]}>Danh Sách Giáo Viên</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Add Doctor
+              Thêm Giáo Viên
             </button>
           </div>
           <div className={styles["table"]}>
@@ -359,6 +359,46 @@ const OverView = (props: Props) => {
                   <td>Male</td>
                   <td>61kg</td>
                   <td className={styles["pending"]}>pending</td>
+                  <td>
+                    <span>
+                      <i className={`fa fa-edit ${styles.edit}`}></i>
+                      <i className={`fa fa-trash ${styles.delete}`}></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className={styles["recent--patients"]}>
+          <div className={styles["title"]}>
+            <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
+            <button className={styles["add"]}>
+              <i className="fa fa-plus"></i>
+              Thêm Học Viên
+            </button>
+          </div>
+          <div className={styles["table"]}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tài Khoản</th>
+                  <th>Mật Khẩu</th>
+                  <th>Họ Tên</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Cấp Bậc</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>hungit1993qt</td>
+                  <td>Hung1234</td>
+                  <td>Nguyễn Trần Hùng</td>
+                  <td>0999999999</td>
+                  <td className={styles["pending"]}>Học Viên</td>
+                  <td>hungit1993qt@gmail.com</td>
                   <td>
                     <span>
                       <i className={`fa fa-edit ${styles.edit}`}></i>

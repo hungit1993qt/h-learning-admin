@@ -36,6 +36,19 @@ const OverView = (props: Props) => {
           <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-3"]}`}>
+                <i className="fa fa-chalkboard-teacher"></i>
+              </span>
+              <span
+                className={styles["sidebar--item"]}
+                style={{ whiteSpace: "nowrap" }}
+              >
+                Quản lý giáo viên
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span className={`${styles.icon} ${styles["icon-4"]}`}>
                 <i className="fa fa-user"></i>
               </span>
               <span
@@ -46,14 +59,7 @@ const OverView = (props: Props) => {
               </span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <span className={`${styles.icon} ${styles["icon-4"]}`}>
-                <i className="fa fa-user-alt"></i>
-              </span>
-              <span className={styles["sidebar--item"]}>Quản lý giáo viên</span>
-            </a>
-          </li>
+          
           {/* <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-5"]}`}>

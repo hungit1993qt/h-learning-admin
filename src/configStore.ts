@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import listCours from "./Slices/Course";
 import actionMenu from "./Slices/Course";
+import listAccount from "./Slices/auth";
 import auth from "./Slices/auth";
 
 const store = configureStore({
   reducer: {
-    listCours,
     auth,
+    listCours,
     actionMenu,
+    listAccount
   },
 });
 

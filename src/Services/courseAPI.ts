@@ -1,10 +1,11 @@
 import axiosClient from "./axiosClient";
 
 const courseAPI = {
-  getListCourse: () => {
+  getListCourse: (tenKhoaHoc:string) => {
     // Khai báo hàm call API dữ liệu trả về là Movie[]
     return axiosClient.get("QuanLyKhoaHoc/LayDanhSachKhoaHoc",{
       params:{
+        tenKhoaHoc:tenKhoaHoc
         //MaNhom:"GP01"
       }
     });

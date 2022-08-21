@@ -1,17 +1,51 @@
 import styles from "_Playground/SCSS/HomePage/OverView.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
-import { useEffect } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { getListCourse } from "Slices/Course";
+import { getListAccount } from "Slices/auth";
+import { useDebounce } from "usehooks-ts";
 type Props = {};
 
 const OverView = (props: Props) => {
+  const [valueSearchListCourse, setValueSearchListCourse] =
+    useState<string>("");
+  const [valueSearchListAccount, setValueSearchListAccount] =
+    useState<string>("a");
+  const debouncedValueListCourse = useDebounce<string>(
+    valueSearchListCourse,
+    500
+  );
+  const debouncedValueListAccount = useDebounce<string>(
+    valueSearchListAccount,
+    500
+  );
+  const handlSearchListCourse = (event: ChangeEvent<HTMLInputElement>) => {
+    setValueSearchListCourse(event.target.value);
+  };
+  const handlSearchListAccount = (event: ChangeEvent<HTMLInputElement>) => {
+    setValueSearchListAccount(event.target.value);
+  };
   const { actionMenu } = useSelector((state: RootState) => state.actionMenu);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getListCourse());
-  }, []);
+    dispatch(getListCourse(debouncedValueListCourse));
+    dispatch(getListAccount(debouncedValueListAccount));
+  }, [debouncedValueListCourse, debouncedValueListAccount]);
   const { listCourse } = useSelector((state: RootState) => state.listCours);
+  const { listAccount } = useSelector((state: RootState) => state.listAccount);
+  let totalTeacher = 0;
+  let totalStudent = 0;
+  console.log(listAccount.length);
+  for (let i = 0; i < listAccount.length; i++) {
+    if (listAccount[i].maLoaiNguoiDung === "GV") {
+      totalTeacher += 1;
+    } else {
+      totalStudent += 1;
+    }
+  }
+  console.log("teacher", totalTeacher);
+  console.log("student", totalStudent);
 
   return (
     <section className={styles["main"]}>
@@ -137,7 +171,7 @@ const OverView = (props: Props) => {
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
                   <h5 className={styles["card--title"]}>Số Lượng Giáo Viên</h5>
-                  <h1>152</h1>
+                  <h1>{totalTeacher}</h1>
                 </div>
                 <i className={`fa fa-user ${styles[`card--icon--lg`]}`} />
               </div>
@@ -172,7 +206,7 @@ const OverView = (props: Props) => {
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
                   <h5 className={styles["card--title"]}>Số Lượng Học Viên</h5>
-                  <h1>1145</h1>
+                  <h1>{totalStudent}</h1>
                 </div>
                 <i className={`fa fa-user-alt ${styles[`card--icon--lg`]}`} />
               </div>
@@ -207,7 +241,7 @@ const OverView = (props: Props) => {
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
                   <h5 className={styles["card--title"]}>Số Lượng Khóa Học</h5>
-                  <h1>102</h1>
+                  <h1>{listCourse.length}</h1>
                 </div>
                 <i className={`fa fa-book-open ${styles[`card--icon--lg`]}`} />
               </div>
@@ -365,28 +399,48 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Date in</th>
-                  <th>Gender</th>
-                  <th>Age</th>
-                  <th>Status</th>
-                  <th>Settings</th>
+                  <th>Tài Khoản</th>
+                  <th>Mật Khẩu</th>
+                  <th>
+                    <input
+                      placeholder="Tìm tên..."
+                      className={styles.inputSearch}
+                      type="text"
+                      onChange={handlSearchListAccount}
+                      name=""
+                      id=""
+                    />
+                  </th>
+                  <th>Email</th>
+                  <th>SĐT</th>
+                  <th>Cấp Bậc</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Cameron Williamson</td>
-                  <td>30/07/2022</td>
-                  <td>Male</td>
-                  <td>61kg</td>
-                  <td className={styles["pending"]}>pending</td>
-                  <td>
-                    <span>
-                      <i className={`fa fa-edit ${styles.edit}`}></i>
-                      <i className={`fa fa-trash ${styles.delete}`}></i>
-                    </span>
-                  </td>
-                </tr>
+                {listAccount.map((Account) => {
+                  if (Account.maLoaiNguoiDung === "GV") {
+                    return (
+                      <tr key={Account.taiKhoan}>
+                        <td>{Account.taiKhoan}</td>
+                        <td>{Account.matKhau}</td>
+                        <td>{Account.hoTen}</td>
+                        <td>{Account.email}</td>
+                        <td>{Account.soDt}</td>
+                        <td className={styles["pending"]}>
+                          {Account.tenLoaiNguoiDung}
+                        </td>
+
+                        <td>
+                          <span>
+                            <i className={`fa fa-edit ${styles.edit}`}></i>
+                            <i className={`fa fa-trash ${styles.delete}`}></i>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  }
+                })}
               </tbody>
             </table>
           </div>
@@ -405,87 +459,77 @@ const OverView = (props: Props) => {
                 <tr>
                   <th>Tài Khoản</th>
                   <th>Mật Khẩu</th>
-                  <th>Họ Tên</th>
-                  <th>Số Điện Thoại</th>
-                  <th>Cấp Bậc</th>
+                  <th>
+                    <input
+                      placeholder="Tìm tên..."
+                      className={styles.inputSearch}
+                      type="text"
+                      onChange={handlSearchListAccount}
+                      name=""
+                      id=""
+                    />
+                  </th>
                   <th>Email</th>
+                  <th>SĐT</th>
+                  <th>Cấp Bậc</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>hungit1993qt</td>
-                  <td>Hung1234</td>
-                  <td>Nguyễn Trần Hùng</td>
-                  <td>0999999999</td>
-                  <td className={styles["pending"]}>Học Viên</td>
-                  <td>hungit1993qt@gmail.com</td>
-                  <td>
-                    <span>
-                      <i className={`fa fa-edit ${styles.edit}`}></i>
-                      <i className={`fa fa-trash ${styles.delete}`}></i>
-                    </span>
-                  </td>
-                </tr>
+                {listAccount.map((Account) => {
+                  if (Account.maLoaiNguoiDung === "HV") {
+                    return (
+                      <tr key={Account.taiKhoan}>
+                        <td>{Account.taiKhoan}</td>
+                        <td>{Account.matKhau}</td>
+                        <td>{Account.hoTen}</td>
+                        <td>{Account.email}</td>
+                        <td>{Account.soDt}</td>
+                        <td className={styles["pending"]}>
+                          {Account.tenLoaiNguoiDung}
+                        </td>
+
+                        <td>
+                          <span>
+                            <i className={`fa fa-edit ${styles.edit}`}></i>
+                            <i className={`fa fa-trash ${styles.delete}`}></i>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  }
+                })}
               </tbody>
             </table>
           </div>
         </div>
-        <div className={styles["recent--patients"]}>
-          <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Danh Mục Khóa Học</h2>
-            <button className={styles["add"]}>
-              <i className="fa fa-plus"></i>
-              Thêm
-            </button>
-          </div>
-          <div className={styles["table"]}>
-            <table>
-              <thead>
-                <tr>
-                  <th>Tài Khoản</th>
-                  <th>Mật Khẩu</th>
-                  <th>Họ Tên</th>
-                  <th>Số Điện Thoại</th>
-                  <th>Cấp Bậc</th>
-                  <th>Email</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>hungit1993qt</td>
-                  <td>Hung1234</td>
-                  <td>Nguyễn Trần Hùng</td>
-                  <td>0999999999</td>
-                  <td className={styles["pending"]}>Học Viên</td>
-                  <td>hungit1993qt@gmail.com</td>
-                  <td>
-                    <span>
-                      <i className={`fa fa-edit ${styles.edit}`}></i>
-                      <i className={`fa fa-trash ${styles.delete}`}></i>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className={styles["recent--patients"]}>
+        
+
+        <div className={styles["list-Course"]}>
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Danh Sách Khóa Học</h2>
+
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
               Thêm
             </button>
           </div>
-          <div className={styles["table"]}>
+          <div className={styles["tableListCourse"]}>
             <table>
               <thead>
                 <tr>
                   <th>Mã Khóa Học</th>
                   <th>Bí Danh</th>
-                  <th>Tên Khóa Học</th>
+                  <th>
+                    <input
+                      placeholder="Tìm khóa học..."
+                      className={styles.inputSearch}
+                      type="text"
+                      onChange={handlSearchListCourse}
+                      name=""
+                      id=""
+                    />
+                  </th>
                   <th>Mô Tả</th>
                   <th>Lượt Xem</th>
                   <th>SL Học Viên</th>
@@ -501,13 +545,17 @@ const OverView = (props: Props) => {
                 {listCourse.map((Course) => {
                   return (
                     <tr key={Course.maKhoaHoc}>
-                      <td >{Course.maKhoaHoc}</td>
+                      <td>{Course.maKhoaHoc}</td>
                       <td>{Course.biDanh}</td>
                       <td>{Course.tenKhoaHoc}</td>
-                      <td><i className="fa fa-eye"></i></td>
+                      <td>
+                        <i className="fa fa-eye"></i>
+                      </td>
                       <td className={styles["pending"]}>{Course.luotXem}</td>
                       <td>{Course.soLuongHocVien}</td>
-                      <td><i className="fa fa-image"></i></td>
+                      <td>
+                        <i className="fa fa-image"></i>
+                      </td>
                       <td>{Course.maNhom}</td>
                       <td>{Course.ngayTao}</td>
                       <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>

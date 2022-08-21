@@ -1,39 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { ListAccount } from "Interface/listAccount";
+import authAPI from "Services/authAPI";
 
-// const message: string | null = "Hello"
-// const number = message as string
+interface State {
+  listAccount: ListAccount[];
+  user:any;
+}
 
-const initialState = {
-  // user: {
-  //   taiKhoan: "dannguyen",
-  //   email: "dan@gmail.com",
-  //   accessToken: "abc123",
-  // },
-  user: JSON.parse(localStorage.getItem("user") as string) || null,
+const initialState: State = {
+  listAccount: [],
+  user:{},
 };
 
 // Viết actions login và register
-export const login = createAsyncThunk("auth/login", async (values) => {
-  try {
-    // const data = await authAPI.login(values)
-    const data = { name: "aaa" };
-    // Lưu thông tin user xuống localStorage
-    localStorage.setItem("user", JSON.stringify(data));
-    return data;
-  } catch (error) {
-    throw error;
+export const getListAccount = createAsyncThunk(
+  "auth/getListAccount",
+  async (tuKhoa: string) => {
+    try {
+      const respone = await authAPI.getListAccount(tuKhoa);
+      const data = respone.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, { payload }) => {
-      // state.user = payload
+    builder.addCase(getListAccount.fulfilled, (state, { payload }) => {
+      state.listAccount = payload;
     });
   },
 });

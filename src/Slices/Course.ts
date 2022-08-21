@@ -19,9 +19,9 @@ const initialState: State = {
 // thunk actions
 export const getListCourse = createAsyncThunk(
   "course/getListCourse",
-  async () => {
+  async (tenKhoaHoc:string) => {
     try {
-      const respone = await courseAPI.getListCourse();
+      const respone = await courseAPI.getListCourse(tenKhoaHoc);
       const data = respone.data;
       return data;
     } catch (error) {

@@ -1,11 +1,18 @@
 import styles from "_Playground/SCSS/HomePage/OverView.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
+import { useEffect } from "react";
+import { getListCourse } from "Slices/Course";
 type Props = {};
 
 const OverView = (props: Props) => {
   const { actionMenu } = useSelector((state: RootState) => state.actionMenu);
-  
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(getListCourse());
+  }, []);
+  const { listCourse } = useSelector((state: RootState) => state.listCours);
+
   return (
     <section className={styles["main"]}>
       <div
@@ -59,7 +66,7 @@ const OverView = (props: Props) => {
               </span>
             </a>
           </li>
-          
+
           {/* <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-5"]}`}>
@@ -83,7 +90,12 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-7"]}`}>
                 <i className="fa fa-cogs"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Cài đặt</span>
+              <span
+                className={styles["sidebar--item"]}
+                style={{ whiteSpace: "nowrap" }}
+              >
+                Cài đặt
+              </span>
             </a>
           </li>
           <li>
@@ -91,7 +103,12 @@ const OverView = (props: Props) => {
               <span className={`${styles.icon} ${styles["icon-8"]}`}>
                 <i className="fa fa-sign-out-alt"></i>
               </span>
-              <span className={styles["sidebar--item"]}>Đăng xuất</span>
+              <span
+                className={styles["sidebar--item"]}
+                style={{ whiteSpace: "nowrap" }}
+              >
+                Đăng xuất
+              </span>
             </a>
           </li>
         </ul>
@@ -192,9 +209,7 @@ const OverView = (props: Props) => {
                   <h5 className={styles["card--title"]}>Số Lượng Khóa Học</h5>
                   <h1>102</h1>
                 </div>
-                <i
-                  className={`fa fa-book-open ${styles[`card--icon--lg`]}`}
-                />
+                <i className={`fa fa-book-open ${styles[`card--icon--lg`]}`} />
               </div>
               <div className={styles["card--stats"]}>
                 <span>
@@ -343,7 +358,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Sách Giáo Viên</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm 
+              Thêm
             </button>
           </div>
           <div className={styles["table"]}>
@@ -381,7 +396,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm 
+              Thêm
             </button>
           </div>
           <div className={styles["table"]}>
@@ -421,7 +436,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Mục Khóa Học</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm 
+              Thêm
             </button>
           </div>
           <div className={styles["table"]}>
@@ -461,7 +476,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Sách Khóa Học</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm 
+              Thêm
             </button>
           </div>
           <div className={styles["table"]}>
@@ -473,8 +488,8 @@ const OverView = (props: Props) => {
                   <th>Tên Khóa Học</th>
                   <th>Mô Tả</th>
                   <th>Lượt Xem</th>
-                  <th>Đánh Giá</th>
-                  <th>Hình Ảnh</th>
+                  <th>SL Học Viên</th>
+                  <th>Ảnh</th>
                   <th>Mã Nhóm</th>
                   <th>Ngày Tạo</th>
                   <th>Mã Danh Mục Khóa Học</th>
@@ -483,20 +498,29 @@ const OverView = (props: Props) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>hungit1993qt</td>
-                  <td>Hung1234</td>
-                  <td>Nguyễn Trần Hùng</td>
-                  <td>0999999999</td>
-                  <td className={styles["pending"]}>Học Viên</td>
-                  <td>hungit1993qt@gmail.com</td>
-                  <td>
-                    <span>
-                      <i className={`fa fa-edit ${styles.edit}`}></i>
-                      <i className={`fa fa-trash ${styles.delete}`}></i>
-                    </span>
-                  </td>
-                </tr>
+                {listCourse.map((Course) => {
+                  return (
+                    <tr key={Course.maKhoaHoc}>
+                      <td >{Course.maKhoaHoc}</td>
+                      <td>{Course.biDanh}</td>
+                      <td>{Course.tenKhoaHoc}</td>
+                      <td><i className="fa fa-eye"></i></td>
+                      <td className={styles["pending"]}>{Course.luotXem}</td>
+                      <td>{Course.soLuongHocVien}</td>
+                      <td><i className="fa fa-image"></i></td>
+                      <td>{Course.maNhom}</td>
+                      <td>{Course.ngayTao}</td>
+                      <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
+                      <td>{Course.nguoiTao.hoTen}</td>
+                      <td>
+                        <span>
+                          <i className={`fa fa-edit ${styles.edit}`}></i>
+                          <i className={`fa fa-trash ${styles.delete}`}></i>
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

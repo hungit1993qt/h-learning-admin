@@ -1,27 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Movie } from "../Interface/movie";
-import movieAPI from "../Services/movieAPI";
+import { ListCourse } from "../Interface/ListCourse";
+import courseAPI from "../Services/courseAPI";
 
 interface State {
-  movies: Movie[];
+  listCourse: ListCourse[];
   isLoading: boolean;
   error: string | null;
   actionMenu: boolean;
 }
 
 const initialState: State = {
-  movies: [],
+  listCourse: [],
   isLoading: false,
   error: null,
   actionMenu: false,
 };
 
 // thunk actions
-export const getMovieShowing = createAsyncThunk(
-  "movie/getMovieShowing",
+export const getListCourse = createAsyncThunk(
+  "course/getListCourse",
   async () => {
     try {
-      const data = await movieAPI.getMovieShowing();
+      const respone = await courseAPI.getListCourse();
+      const data = respone.data;
       return data;
     } catch (error) {
       throw error;
@@ -29,8 +30,8 @@ export const getMovieShowing = createAsyncThunk(
   }
 );
 
-const movieSlice = createSlice({
-  name: "movie",
+const courseSlice = createSlice({
+  name: "course",
   initialState,
   reducers: {
     ActionMenu: (state, { payload }) => {
@@ -38,14 +39,14 @@ const movieSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getMovieShowing.pending, (state) => {
+    builder.addCase(getListCourse.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getMovieShowing.fulfilled, (state, { payload }) => {
+    builder.addCase(getListCourse.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      state.movies = payload;
+      state.listCourse = payload;
     });
-    builder.addCase(getMovieShowing.rejected, (state, { error }) => {
+    builder.addCase(getListCourse.rejected, (state, { error }) => {
       state.isLoading = false;
       state.error = error as any;
     });
@@ -53,6 +54,6 @@ const movieSlice = createSlice({
 });
 
 // export actions 
-export const  { ActionMenu } = movieSlice.actions;
+export const  { ActionMenu } = courseSlice.actions;
 // export reducer
-export default movieSlice.reducer;
+export default courseSlice.reducer;

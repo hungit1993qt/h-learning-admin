@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import movie from "./Slices/movie";
-import actionMenu from "./Slices/movie";
+import listCours from "./Slices/Course";
+import actionMenu from "./Slices/Course";
 import auth from "./Slices/auth";
 
 const store = configureStore({
   reducer: {
-    movie,
+    listCours,
     auth,
     actionMenu,
   },

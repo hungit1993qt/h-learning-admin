@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
-import movieAPI from "Services/movieAPI";
+import movieAPI from "Services/courseAPI";
 
 // data: tenPhim, biDanh, trailer, hinhAnh, moTa, ngayKhoiChieu
 interface MovieValues {
@@ -19,16 +19,16 @@ const AddMovie = () => {
   });
 
   const onSubmit = async (values: MovieValues) => {
-    const payload = {
-      ...values,
-      hinhAnh: values.hinhAnh[0],
-      ngayKhoiChieu: dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY"),
-    };
-    try {
-      await movieAPI.addMovie(payload);
-    } catch (error) {
-      console.log(error);
-    }
+    // const payload = {
+    //   ...values,
+    //   hinhAnh: values.hinhAnh[0],
+    //   ngayKhoiChieu: dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY"),
+    // };
+    // try {
+    //   await movieAPI.addMovie(payload);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (

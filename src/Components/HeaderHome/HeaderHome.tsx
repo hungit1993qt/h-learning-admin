@@ -1,7 +1,7 @@
 //tsrafce
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import { ActionMenu } from "Slices/movie";
+import { ActionMenu } from "Slices/Course";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";

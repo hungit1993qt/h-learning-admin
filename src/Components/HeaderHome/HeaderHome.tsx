@@ -24,7 +24,7 @@ const HeaderHome = (props: Props) => {
             className={`fa fa-bars ${styles.icon} ${styles["icon-0"]}`}
           />
           <h2 className={styles["title-Logo"]}>
-            Med<span className={styles.span}>Ex</span>
+            H-<span className={styles.span}>Learning</span>
           </h2>
         </div>
         <div className={styles["search--notification--profile"]}>

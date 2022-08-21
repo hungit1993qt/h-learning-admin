@@ -8,7 +8,6 @@ const HomePage = (props: Props) => {
   return (
     <>
       <Banner />
-      <MovieShowing />
     </>
   );
 };

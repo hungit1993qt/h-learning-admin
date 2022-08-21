@@ -30,8 +30,8 @@ const OverView = (props: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getListCourse(debouncedValueListCourse));
-    dispatch(getListAccount(debouncedValueListAccount));
-  }, [debouncedValueListCourse, debouncedValueListAccount]);
+    dispatch(getListAccount());
+  }, [debouncedValueListCourse]);
   const { listCourse } = useSelector((state: RootState) => state.listCours);
   const { listAccount } = useSelector((state: RootState) => state.listAccount);
   let totalTeacher = 0;
@@ -423,7 +423,7 @@ const OverView = (props: Props) => {
                     return (
                       <tr key={Account.taiKhoan}>
                         <td>{Account.taiKhoan}</td>
-                        <td>{Account.matKhau}</td>
+                        <td><i className="fa fa-eye-slash"></i></td>
                         <td>{Account.hoTen}</td>
                         <td>{Account.email}</td>
                         <td>{Account.soDt}</td>
@@ -481,7 +481,7 @@ const OverView = (props: Props) => {
                     return (
                       <tr key={Account.taiKhoan}>
                         <td>{Account.taiKhoan}</td>
-                        <td>{Account.matKhau}</td>
+                        <td><i className="fa fa-eye-slash"></i></td>
                         <td>{Account.hoTen}</td>
                         <td>{Account.email}</td>
                         <td>{Account.soDt}</td>
@@ -545,11 +545,11 @@ const OverView = (props: Props) => {
                 {listCourse.map((Course) => {
                   return (
                     <tr key={Course.maKhoaHoc}>
-                      <td>{Course.maKhoaHoc}</td>
-                      <td>{Course.biDanh}</td>
+                      <td><i className="fa fa-eye-slash"></i></td>
+                      <td><i className="fa fa-eye-slash"></i></td>
                       <td>{Course.tenKhoaHoc}</td>
                       <td>
-                        <i className="fa fa-eye"></i>
+                      <i className="fa fa-eye-slash"></i>
                       </td>
                       <td className={styles["pending"]}>{Course.luotXem}</td>
                       <td>{Course.soLuongHocVien}</td>

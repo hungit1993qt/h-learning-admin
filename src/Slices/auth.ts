@@ -15,9 +15,9 @@ const initialState: State = {
 // Viết actions login và register
 export const getListAccount = createAsyncThunk(
   "auth/getListAccount",
-  async (tuKhoa: string) => {
+  async () => {
     try {
-      const respone = await authAPI.getListAccount(tuKhoa);
+      const respone = await authAPI.getListAccount();
       const data = respone.data;
 
       return data;

@@ -1,11 +1,11 @@
 import axiosClient from "./axiosClient";
 
 const authAPI = {
-  getListAccount: (tuKhoa:string) => {
+  getListAccount: () => {
     // Khai báo hàm call API dữ liệu trả về là Movie[]
     return axiosClient.get("QuanLyNguoiDung/TimKiemNguoiDung",{
       params:{
-        tuKhoa:tuKhoa
+        // tuKhoa:tuKhoa
         //MaNhom:"GP01"
       }
     });

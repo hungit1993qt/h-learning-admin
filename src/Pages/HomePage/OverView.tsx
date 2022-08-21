@@ -337,7 +337,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Sách Giáo Viên</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm Giáo Viên
+              Thêm 
             </button>
           </div>
           <div className={styles["table"]}>
@@ -375,7 +375,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm Học Viên
+              Thêm 
             </button>
           </div>
           <div className={styles["table"]}>
@@ -415,7 +415,7 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Mục Khóa Học</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm Học Viên
+              Thêm 
             </button>
           </div>
           <div className={styles["table"]}>
@@ -455,19 +455,24 @@ const OverView = (props: Props) => {
             <h2 className={styles["section--title"]}>Danh Sách Khóa Học</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
-              Thêm Học Viên
+              Thêm 
             </button>
           </div>
           <div className={styles["table"]}>
             <table>
               <thead>
                 <tr>
-                  <th>Tài Khoản</th>
-                  <th>Mật Khẩu</th>
-                  <th>Họ Tên</th>
-                  <th>Số Điện Thoại</th>
-                  <th>Cấp Bậc</th>
-                  <th>Email</th>
+                  <th>Mã Khóa Học</th>
+                  <th>Bí Danh</th>
+                  <th>Tên Khóa Học</th>
+                  <th>Mô Tả</th>
+                  <th>Lượt Xem</th>
+                  <th>Đánh Giá</th>
+                  <th>Hình Ảnh</th>
+                  <th>Mã Nhóm</th>
+                  <th>Ngày Tạo</th>
+                  <th>Mã Danh Mục Khóa Học</th>
+                  <th>Tài Khoản Người Tạo</th>
                   <th></th>
                 </tr>
               </thead>

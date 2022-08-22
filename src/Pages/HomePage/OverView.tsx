@@ -617,7 +617,13 @@ const OverView = (props: Props) => {
                       </td>
                       <td>{Course.ngayTao}</td>
                       <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
-                      <td>{Course.nguoiTao.hoTen}</td>
+                      <td>
+                        <i
+                          onClick={() => Swal.fire(`Bí danh: ${Course.nguoiTao.hoTen}`)}
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
+                      </td>
                       <td>
                         <span>
                           <i className={`fa fa-edit ${styles.edit}`}></i>

@@ -5,6 +5,7 @@ import { useEffect, useState, ChangeEvent } from "react";
 import { getListCourse } from "Slices/Course";
 import { getListAccount } from "Slices/auth";
 import { useDebounce } from "usehooks-ts";
+import Swal from 'sweetalert2'
 type Props = {};
 
 const OverView = (props: Props) => {
@@ -36,7 +37,6 @@ const OverView = (props: Props) => {
   const { listAccount } = useSelector((state: RootState) => state.listAccount);
   let totalTeacher = 0;
   let totalStudent = 0;
-  console.log(listAccount.length);
   for (let i = 0; i < listAccount.length; i++) {
     if (listAccount[i].maLoaiNguoiDung === "GV") {
       totalTeacher += 1;
@@ -44,8 +44,6 @@ const OverView = (props: Props) => {
       totalStudent += 1;
     }
   }
-  console.log("teacher", totalTeacher);
-  console.log("student", totalStudent);
 
   return (
     <section className={styles["main"]}>
@@ -426,7 +424,7 @@ const OverView = (props: Props) => {
                         <td>{Account.hoTen}</td>
                         <td>{Account.taiKhoan}</td>
                         <td>
-                          <i className="fa fa-eye-slash"></i>
+                          <i onClick={()=>Swal.fire(`Mật khẩu: ${Account.matKhau}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
                         </td>
 
                         <td>{Account.email}</td>
@@ -488,7 +486,7 @@ const OverView = (props: Props) => {
                         <td>{Account.hoTen}</td>
                         <td>{Account.taiKhoan}</td>
                         <td>
-                          <i className="fa fa-eye-slash"></i>
+                        <i onClick={()=>Swal.fire(`Mật khẩu: ${Account.matKhau}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
                         </td>
 
                         <td>{Account.email}</td>
@@ -540,9 +538,7 @@ const OverView = (props: Props) => {
 
                   <th>Mô Tả</th>
                   <th>Lượt Xem</th>
-                  <th>Học Viên</th>
                   <th>Ảnh</th>
-                  <th>Mã Nhóm</th>
                   <th>Ngày Tạo</th>
                   <th>Danh Mục </th>
                   <th>Người Tạo</th>
@@ -555,20 +551,19 @@ const OverView = (props: Props) => {
                     <tr key={Course.maKhoaHoc}>
                       <td>{Course.tenKhoaHoc}</td>
                       <td>
-                        <i className="fa fa-eye-slash"></i>
+                      <i onClick={()=>Swal.fire(`Mã khóa học: ${Course.maKhoaHoc}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
                       </td>
                       <td>
-                        <i className="fa fa-eye-slash"></i>
+                      <i onClick={()=>Swal.fire(`Bí danh: ${Course.biDanh}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
                       </td>
                       <td>
-                        <i className="fa fa-eye-slash"></i>
+                      <i onClick={()=>Swal.fire(`Mô tả: ${Course.moTa}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
                       </td>
                       <td className={styles["pending"]}>{Course.luotXem}</td>
-                      <td>{Course.soLuongHocVien}</td>
+                      
                       <td>
                         <i className="fa fa-image"></i>
                       </td>
-                      <td>{Course.maNhom}</td>
                       <td>{Course.ngayTao}</td>
                       <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
                       <td>{Course.nguoiTao.hoTen}</td>

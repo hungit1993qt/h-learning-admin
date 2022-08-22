@@ -24,10 +24,13 @@
 .sidebar.active {
   width: 51px;
   overflow: hidden;
+  transition: 0.5s;
+  
 }
 .sidebar--items {
   margin: 0;
   padding: 0;
+  transition: 0.5s;
 }
 .sidebar--bottom-items {
   margin: 0;
@@ -35,6 +38,7 @@
 }
 .sidebar.active .sidebar--item {
   display: none;
+  transition: 0.5s;
 }
 .sidebar--item {
   height: 20px;

@@ -6,13 +6,17 @@ import { getListCourse } from "Slices/Course";
 import { getListAccount } from "Slices/auth";
 import { useDebounce } from "usehooks-ts";
 import Swal from "sweetalert2";
+import { loadPlugin } from "immer/dist/internal";
+import { LOADIPHLPAPI } from "dns";
 type Props = {};
 
 const OverView = (props: Props) => {
   // const [valueSearchListCourse, setValueSearchListCourse] =
   //   useState<string>("");
-  const [valueSearchListAccount, setValueSearchListAccount] =
-    useState<string>("a");
+  const [valueSearchListAccountGV, setValueSearchListAccountGV] =
+    useState<string>(" ");
+  const [valueSearchListAccountHV, setValueSearchListAccountHV] =
+    useState<string>(" ");
   // const debouncedValueListCourse = useDebounce<string>(
   //   valueSearchListCourse,
   //   500
@@ -24,9 +28,9 @@ const OverView = (props: Props) => {
   // const handlSearchListCourse = (event: ChangeEvent<HTMLInputElement>) => {
   //   setValueSearchListCourse(event.target.value);
   // };
-  const handlSearchListAccount = (event: ChangeEvent<HTMLInputElement>) => {
-    setValueSearchListAccount(event.target.value);
-  };
+  // const handlSearchListAccount = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setValueSearchListAccount(event.target.value);
+  // };
   const searchListCourse = () => {
     (async () => {
       const { value: tenKhoaHoc } = await Swal.fire({
@@ -37,78 +41,38 @@ const OverView = (props: Props) => {
       });
 
       if (tenKhoaHoc) {
-        if(tenKhoaHoc === "all" ){
+        if (tenKhoaHoc === "all") {
           Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Tìm kiếm tất cả thành công!',
+            position: "center",
+            icon: "success",
+            title: "Tìm kiếm tất cả thành công!",
             showConfirmButton: false,
-            timer: 1500
-          })
+            timer: 1500,
+          });
           dispatch(getListCourse(` `));
-        }else{
+        } else {
           Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Tìm kiếm thành công!',
+            position: "center",
+            icon: "success",
+            title: "Tìm kiếm thành công!",
             showConfirmButton: false,
-            timer: 1500
-          })
+            timer: 1500,
+          });
           dispatch(getListCourse(tenKhoaHoc));
         }
-      }else{
+      } else {
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Tìm kiếm tất cả thành công!',
+          position: "center",
+          icon: "success",
+          title: "Tìm kiếm tất cả thành công!",
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
         dispatch(getListCourse(` `));
       }
     })();
   };
-  const searchListAccount = () => {
-    (async () => {
-      const { value: tenKhoaHoc } = await Swal.fire({
-        title: "Tìm người dùng",
-        input: "text",
-        inputLabel: "Nhập thông tin",
-        inputPlaceholder: "Thông tin tìm kiếm",
-      });
 
-      if (tenKhoaHoc) {
-        if(tenKhoaHoc === "all" ){
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Tìm kiếm tất cả thành công!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          //dispatch(getListCourse(` `));
-        }else{
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Tìm kiếm thành công!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          //dispatch(getListCourse(tenKhoaHoc));
-        }
-      }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Tìm kiếm tất cả thành công!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        //dispatch(getListCourse(` `));
-      }
-    })();
-  };
   const { actionMenu } = useSelector((state: RootState) => state.actionMenu);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -126,7 +90,103 @@ const OverView = (props: Props) => {
       totalStudent += 1;
     }
   }
+  const searchListAccountGV = () => {
+    (async () => {
+      const { value: tenTaikhoan } = await Swal.fire({
+        title: "Tìm người dùng",
+        input: "text",
+        inputLabel: "Nhập thông tin",
+        inputPlaceholder: "Thông tin tìm kiếm",
+      });
+
+      if (tenTaikhoan) {
+        if (tenTaikhoan === "all") {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Tìm kiếm tất cả thành công!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setValueSearchListAccountGV("");
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Tìm kiếm thành công!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setValueSearchListAccountGV(tenTaikhoan);
+        }
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Tìm kiếm tất cả thành công!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setValueSearchListAccountGV("");
+      }
+    })();
+  };
+  const searchListAccountHV = () => {
+    (async () => {
+      const { value: tenTaikhoan } = await Swal.fire({
+        title: "Tìm người dùng",
+        input: "text",
+        inputLabel: "Nhập thông tin",
+        inputPlaceholder: "Thông tin tìm kiếm",
+      });
+
+      if (tenTaikhoan) {
+        if (tenTaikhoan === "all") {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Tìm kiếm tất cả thành công!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setValueSearchListAccountHV("");
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Tìm kiếm thành công!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setValueSearchListAccountHV(tenTaikhoan);
+        }
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Tìm kiếm tất cả thành công!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setValueSearchListAccountHV("");
+      }
+    })();
+  };
+  const ListCoursesGV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "GV");
+  console.log(ListCoursesGV);
+  const ListCoursesHV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "HV");
+  const resultSearchAccountGV = ListCoursesGV.filter((account) =>
+    account.hoTen.toLocaleLowerCase().includes(valueSearchListAccountGV)
+  );
+  const resultSearchAccountHV = ListCoursesHV.filter((account) =>
+    account.hoTen.toLocaleLowerCase().includes(valueSearchListAccountHV)
+  );
   
+  
+  const listAccountsGV =
+    resultSearchAccountGV.length > 0 ? resultSearchAccountGV : ListCoursesGV;
+  const listAccountsHV =
+    resultSearchAccountHV.length > 0 ? resultSearchAccountHV :  ListCoursesHV;
 
   return (
     <section className={styles["main"]}>
@@ -480,8 +540,7 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                <th onClick={()=>searchListAccount()}>
-                    
+                  <th onClick={() => searchListAccountGV()}>
                     {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
@@ -502,44 +561,42 @@ const OverView = (props: Props) => {
                 </tr>
               </thead>
               <tbody>
-                {listAccount.map((Account) => {
-                  if (Account.maLoaiNguoiDung === "GV") {
-                    return (
-                      <tr key={Account.taiKhoan}>
-                        <td>{Account.hoTen}</td>
-                        <td>{Account.taiKhoan}</td>
-                        <td>
-                          <i
-                            onClick={() =>
-                              Swal.fire(`Mật khẩu: ${Account.matKhau}`)
-                            }
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-eye-slash"
-                          ></i>
-                        </td>
+                {listAccountsGV.map((Account) => {
+                  return (
+                    <tr key={Account.taiKhoan}>
+                      <td>{Account.hoTen}</td>
+                      <td>{Account.taiKhoan}</td>
+                      <td>
+                        <i
+                          onClick={() =>
+                            Swal.fire(`Mật khẩu: ${Account.matKhau}`)
+                          }
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
+                      </td>
 
-                        <td>
-                          {" "}
-                          <i
-                            onClick={() => Swal.fire(`Email: ${Account.email}`)}
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-eye-slash"
-                          ></i>
-                        </td>
-                        <td>{Account.soDt}</td>
-                        <td className={styles["pending"]}>
-                          {Account.tenLoaiNguoiDung}
-                        </td>
+                      <td>
+                        {" "}
+                        <i
+                          onClick={() => Swal.fire(`Email: ${Account.email}`)}
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
+                      </td>
+                      <td>{Account.soDt}</td>
+                      <td className={styles["pending"]}>
+                        {Account.tenLoaiNguoiDung}
+                      </td>
 
-                        <td>
-                          <span>
-                            <i className={`fa fa-edit ${styles.edit}`}></i>
-                            <i className={`fa fa-trash ${styles.delete}`}></i>
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  }
+                      <td>
+                        <span>
+                          <i className={`fa fa-edit ${styles.edit}`}></i>
+                          <i className={`fa fa-trash ${styles.delete}`}></i>
+                        </span>
+                      </td>
+                    </tr>
+                  );
                 })}
               </tbody>
             </table>
@@ -557,8 +614,7 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th onClick={()=>searchListAccount()}>
-                    
+                  <th onClick={() => searchListAccountHV()}>
                     {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
@@ -579,44 +635,42 @@ const OverView = (props: Props) => {
                 </tr>
               </thead>
               <tbody>
-                {listAccount.map((Account) => {
-                  if (Account.maLoaiNguoiDung === "HV") {
-                    return (
-                      <tr key={Account.taiKhoan}>
-                        <td>{Account.hoTen}</td>
-                        <td>{Account.taiKhoan}</td>
-                        <td>
-                          <i
-                            onClick={() =>
-                              Swal.fire(`Mật khẩu: ${Account.matKhau}`)
-                            }
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-eye-slash"
-                          ></i>
-                        </td>
+                {listAccountsHV.map((Account) => {
+                  return (
+                    <tr key={Account.taiKhoan}>
+                      <td>{Account.hoTen}</td>
+                      <td>{Account.taiKhoan}</td>
+                      <td>
+                        <i
+                          onClick={() =>
+                            Swal.fire(`Mật khẩu: ${Account.matKhau}`)
+                          }
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
+                      </td>
 
-                        <td>
-                          {" "}
-                          <i
-                            onClick={() => Swal.fire(`Email: ${Account.email}`)}
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-eye-slash"
-                          ></i>
-                        </td>
-                        <td>{Account.soDt}</td>
-                        <td className={styles["pending"]}>
-                          {Account.tenLoaiNguoiDung}
-                        </td>
+                      <td>
+                        {" "}
+                        <i
+                          onClick={() => Swal.fire(`Email: ${Account.email}`)}
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
+                      </td>
+                      <td>{Account.soDt}</td>
+                      <td className={styles["pending"]}>
+                        {Account.tenLoaiNguoiDung}
+                      </td>
 
-                        <td>
-                          <span>
-                            <i className={`fa fa-edit ${styles.edit}`}></i>
-                            <i className={`fa fa-trash ${styles.delete}`}></i>
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  }
+                      <td>
+                        <span>
+                          <i className={`fa fa-edit ${styles.edit}`}></i>
+                          <i className={`fa fa-trash ${styles.delete}`}></i>
+                        </span>
+                      </td>
+                    </tr>
+                  );
                 })}
               </tbody>
             </table>
@@ -636,7 +690,7 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th onClick={()=>searchListCourse()}>
+                  <th onClick={() => searchListCourse()}>
                     {/* <input
                       placeholder="Tìm khóa học..."
                       className={styles.inputSearch}

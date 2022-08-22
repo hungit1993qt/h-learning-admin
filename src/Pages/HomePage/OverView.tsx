@@ -540,12 +540,12 @@ const OverView = (props: Props) => {
 
                   <th>Mô Tả</th>
                   <th>Lượt Xem</th>
-                  <th>SL Học Viên</th>
+                  <th>Học Viên</th>
                   <th>Ảnh</th>
                   <th>Mã Nhóm</th>
                   <th>Ngày Tạo</th>
-                  <th>Mã Danh Mục Khóa Học</th>
-                  <th>Tài Khoản Người Tạo</th>
+                  <th>Danh Mục </th>
+                  <th>Người Tạo</th>
                   <th></th>
                 </tr>
               </thead>

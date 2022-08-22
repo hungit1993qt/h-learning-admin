@@ -56,6 +56,15 @@ const OverView = (props: Props) => {
           })
           dispatch(getListCourse(tenKhoaHoc));
         }
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Tìm kiếm tất cả thành công!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        dispatch(getListCourse(` `));
       }
     })();
   };

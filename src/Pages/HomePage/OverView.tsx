@@ -104,7 +104,6 @@ const OverView = (props: Props) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Tìm kiếm tất cả thành công!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -113,7 +112,6 @@ const OverView = (props: Props) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Tìm kiếm thành công!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -123,7 +121,6 @@ const OverView = (props: Props) => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Tìm kiếm tất cả thành công!",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -145,7 +142,6 @@ const OverView = (props: Props) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Tìm kiếm tất cả thành công!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -154,7 +150,6 @@ const OverView = (props: Props) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Tìm kiếm thành công!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -164,7 +159,6 @@ const OverView = (props: Props) => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Tìm kiếm tất cả thành công!",
           showConfirmButton: false,
           timer: 1500,
         });

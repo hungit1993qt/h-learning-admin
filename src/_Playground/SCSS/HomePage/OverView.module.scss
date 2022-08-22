@@ -12,7 +12,7 @@
   left: 0;
   height: 100%;
   width: 200px;
-  background-color: #fff;
+  background-color: transparent;
   padding: 30px 10px 30px 10px;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@
   width: 51px;
   overflow: hidden;
   transition: 0.5s;
-  
+  color: #fff !important;
 }
 .sidebar--items {
   margin: 0;
@@ -43,6 +43,7 @@
 .sidebar--item {
   height: 20px;
   width: 100%;
+  color: #00e77f;
 }
 li {
   list-style: none;
@@ -65,12 +66,12 @@ a {
 
 .sidebar--items a:hover,
 .sidebar--bottom-items a:hover {
-  background-color: #5073fb;
+  background-color: #00e77f;
   color: #fff;
 }
 
 #active--link {
-  background-color: #5073fb;
+  background-color: #00e77f;
   color: #fff;
 }
 
@@ -89,7 +90,7 @@ a {
 }
 
 .icon-0 {
-  color: #5073fb;
+  color: #00e77f;
 }
 
 .icon-1 {
@@ -153,6 +154,7 @@ a {
 }
 
 .section--title {
+  color: #00e77f;
   font-weight: 400;
   font-size: 1.4rem;
 }
@@ -292,7 +294,7 @@ h5 {
   padding: 3px 3px;
   outline: none;
   border: none;
-  background-color: #5073fb;
+  background-color: #00e77f;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
@@ -334,7 +336,7 @@ h5 {
 }
 
 .img--box--cover {
-  border: 1px solid #5073fb;
+  border: 1px solid #00e77f;
   padding: 2px;
   border-radius: 50%;
   display: inline-block;
@@ -354,7 +356,7 @@ h5 {
 }
 
 .scheduled {
-  color: #5073fb;
+  color: #00e77f;
 }
 
 /* recent--patients */
@@ -389,12 +391,13 @@ tr {
 }
 td {
   font-size: 0.7rem;
+  color: #00e77f;
 }
 th {
   font-size: 0.7rem;
   position: sticky;
   top: 0px;
-  background-color: #5073fb;
+  background-color: #00e77f;
   color: #f1f4f8;
   padding: 5px;
   width:auto;
@@ -474,7 +477,7 @@ th {
   border-radius: 5px;
   padding:2px 5px 1px 5px;
   &::placeholder {
-    color:#5073fb;
+    color:#00e77f;
     opacity: 1;
     font-size: 0.8rem;
     font-weight: bold;

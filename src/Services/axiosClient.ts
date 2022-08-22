@@ -19,7 +19,7 @@ axiosClient.interceptors.request.use((config) => {
   // config là nội dung của request
   // ta có thể thay đổi nội dung của request trước khi nó được gửi lên server
   if (config.headers) {
-    const { accessToken = "" } = (store.getState().auth.user as any) || {};
+    const { accessToken = "" } = (store.getState().auth.admin as any) || {};
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }

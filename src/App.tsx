@@ -5,7 +5,6 @@ import HomeTemplate from "./Templates/HomeTemplate";
 import ProtectedRoute from "Routes/ProtectedRoute";
 import GlobalStyles from "./GlobalStyles";
 
-
 // Khi import trực tiếp như thế này thì mặc định sẽ được tải về khi ứng dụng khởi chạy
 // import HomePage from "./Pages/HomePage/HomePage";
 // import Contact from "./Pages/Contact/Contact";
@@ -29,11 +28,13 @@ function App() {
     <ErrorBoundary>
       {/* Suspense dùng để hiện thị ra fallback UI khi component đang được load */}
       <Suspense fallback={<h1>Loading...</h1>}>
+        
         <BrowserRouter>
           <Routes>
+          <Route path="login" element={<Login />} />
             <Route path="" element={<HomeTemplate />}>
               <Route path="contact" element={<Contact />} />
-              <Route path="login" element={<Login />} />
+
               <Route path="register" element={<Register />} />
               <Route path="about" element={<About />} />
               <Route

@@ -83,7 +83,7 @@ const OverView = (props: Props) => {
                 className={styles["sidebar--item"]}
                 style={{ whiteSpace: "nowrap" }}
               >
-                Quản lý giáo viên
+                Quản lý giáo vụ
               </span>
             </a>
           </li>
@@ -170,7 +170,7 @@ const OverView = (props: Props) => {
             <div className={`${styles.card} ${styles[`card-1`]} `}>
               <div className={styles["card--data"]}>
                 <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Số Lượng Giáo Viên</h5>
+                  <h5 className={styles["card--title"]}>Số Lượng Giáo Vụ</h5>
                   <h1>{totalTeacher}</h1>
                 </div>
                 <i className={`fa fa-user ${styles[`card--icon--lg`]}`} />
@@ -387,9 +387,9 @@ const OverView = (props: Props) => {
             </a>
           </div>
         </div> */}
-        <div className={styles["recent--patients"]}>
+        <div className={styles["tableListUser"]}>
           <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Danh Sách Giáo Viên</h2>
+            <h2 className={styles["section--title"]}>Danh Sách Giáo Vụ</h2>
             <button className={styles["add"]}>
               <i className="fa fa-plus"></i>
               Thêm
@@ -399,8 +399,6 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>Tài Khoản</th>
-                  <th>Mật Khẩu</th>
                   <th>
                     <input
                       placeholder="Tìm tên..."
@@ -411,6 +409,9 @@ const OverView = (props: Props) => {
                       id=""
                     />
                   </th>
+                  <th>Tài Khoản</th>
+                  <th>Mật Khẩu</th>
+
                   <th>Email</th>
                   <th>SĐT</th>
                   <th>Cấp Bậc</th>
@@ -422,9 +423,12 @@ const OverView = (props: Props) => {
                   if (Account.maLoaiNguoiDung === "GV") {
                     return (
                       <tr key={Account.taiKhoan}>
-                        <td>{Account.taiKhoan}</td>
-                        <td><i className="fa fa-eye-slash"></i></td>
                         <td>{Account.hoTen}</td>
+                        <td>{Account.taiKhoan}</td>
+                        <td>
+                          <i className="fa fa-eye-slash"></i>
+                        </td>
+
                         <td>{Account.email}</td>
                         <td>{Account.soDt}</td>
                         <td className={styles["pending"]}>
@@ -445,7 +449,7 @@ const OverView = (props: Props) => {
             </table>
           </div>
         </div>
-        <div className={styles["recent--patients"]}>
+        <div className={styles["tableListUser"]}>
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
             <button className={styles["add"]}>
@@ -457,8 +461,6 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>Tài Khoản</th>
-                  <th>Mật Khẩu</th>
                   <th>
                     <input
                       placeholder="Tìm tên..."
@@ -469,6 +471,9 @@ const OverView = (props: Props) => {
                       id=""
                     />
                   </th>
+                  <th>Tài Khoản</th>
+                  <th>Mật Khẩu</th>
+
                   <th>Email</th>
                   <th>SĐT</th>
                   <th>Cấp Bậc</th>
@@ -480,9 +485,12 @@ const OverView = (props: Props) => {
                   if (Account.maLoaiNguoiDung === "HV") {
                     return (
                       <tr key={Account.taiKhoan}>
-                        <td>{Account.taiKhoan}</td>
-                        <td><i className="fa fa-eye-slash"></i></td>
                         <td>{Account.hoTen}</td>
+                        <td>{Account.taiKhoan}</td>
+                        <td>
+                          <i className="fa fa-eye-slash"></i>
+                        </td>
+
                         <td>{Account.email}</td>
                         <td>{Account.soDt}</td>
                         <td className={styles["pending"]}>
@@ -503,7 +511,6 @@ const OverView = (props: Props) => {
             </table>
           </div>
         </div>
-        
 
         <div className={styles["list-Course"]}>
           <div className={styles["title"]}>
@@ -518,8 +525,6 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>Mã Khóa Học</th>
-                  <th>Bí Danh</th>
                   <th>
                     <input
                       placeholder="Tìm khóa học..."
@@ -530,6 +535,9 @@ const OverView = (props: Props) => {
                       id=""
                     />
                   </th>
+                  <th>Mã Khóa Học</th>
+                  <th>Bí Danh</th>
+
                   <th>Mô Tả</th>
                   <th>Lượt Xem</th>
                   <th>SL Học Viên</th>
@@ -545,11 +553,15 @@ const OverView = (props: Props) => {
                 {listCourse.map((Course) => {
                   return (
                     <tr key={Course.maKhoaHoc}>
-                      <td><i className="fa fa-eye-slash"></i></td>
-                      <td><i className="fa fa-eye-slash"></i></td>
                       <td>{Course.tenKhoaHoc}</td>
                       <td>
-                      <i className="fa fa-eye-slash"></i>
+                        <i className="fa fa-eye-slash"></i>
+                      </td>
+                      <td>
+                        <i className="fa fa-eye-slash"></i>
+                      </td>
+                      <td>
+                        <i className="fa fa-eye-slash"></i>
                       </td>
                       <td className={styles["pending"]}>{Course.luotXem}</td>
                       <td>{Course.soLuongHocVien}</td>

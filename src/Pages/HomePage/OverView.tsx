@@ -9,30 +9,62 @@ import Swal from "sweetalert2";
 type Props = {};
 
 const OverView = (props: Props) => {
-  const [valueSearchListCourse, setValueSearchListCourse] =
-    useState<string>("");
+  // const [valueSearchListCourse, setValueSearchListCourse] =
+  //   useState<string>("");
   const [valueSearchListAccount, setValueSearchListAccount] =
     useState<string>("a");
-  const debouncedValueListCourse = useDebounce<string>(
-    valueSearchListCourse,
-    500
-  );
-  const debouncedValueListAccount = useDebounce<string>(
-    valueSearchListAccount,
-    500
-  );
-  const handlSearchListCourse = (event: ChangeEvent<HTMLInputElement>) => {
-    setValueSearchListCourse(event.target.value);
-  };
+  // const debouncedValueListCourse = useDebounce<string>(
+  //   valueSearchListCourse,
+  //   500
+  // );
+  // const debouncedValueListAccount = useDebounce<string>(
+  //   valueSearchListAccount,
+  //   500
+  // );
+  // const handlSearchListCourse = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setValueSearchListCourse(event.target.value);
+  // };
   const handlSearchListAccount = (event: ChangeEvent<HTMLInputElement>) => {
     setValueSearchListAccount(event.target.value);
+  };
+  const search = () => {
+    (async () => {
+      const { value: tenKhoaHoc } = await Swal.fire({
+        title: "Tìm Khóa Học",
+        input: "text",
+        inputLabel: "Nhập thông tin",
+        inputPlaceholder: "Thông tin tìm kiếm",
+      });
+
+      if (tenKhoaHoc) {
+        if(tenKhoaHoc === "all" ){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Tìm kiếm tất cả thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          dispatch(getListCourse(` `));
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Tìm kiếm thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          dispatch(getListCourse(tenKhoaHoc));
+        }
+      }
+    })();
   };
   const { actionMenu } = useSelector((state: RootState) => state.actionMenu);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getListCourse(debouncedValueListCourse));
+    dispatch(getListCourse(""));
     dispatch(getListAccount());
-  }, [debouncedValueListCourse]);
+  }, []);
   const { listCourse } = useSelector((state: RootState) => state.listCours);
   const { listAccount } = useSelector((state: RootState) => state.listAccount);
   let totalTeacher = 0;
@@ -44,6 +76,7 @@ const OverView = (props: Props) => {
       totalStudent += 1;
     }
   }
+  
 
   return (
     <section className={styles["main"]}>
@@ -549,15 +582,16 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>
-                    <input
+                  <th onClick={()=>search()}>
+                    {/* <input
                       placeholder="Tìm khóa học..."
                       className={styles.inputSearch}
                       type="text"
                       onChange={handlSearchListCourse}
                       name=""
                       id=""
-                    />
+                    /> */}
+                    Click tìm kiếm ...
                   </th>
                   <th>Mã Khóa Học</th>
                   <th>Bí Danh</th>
@@ -619,7 +653,9 @@ const OverView = (props: Props) => {
                       <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
                       <td>
                         <i
-                          onClick={() => Swal.fire(`Bí danh: ${Course.nguoiTao.hoTen}`)}
+                          onClick={() =>
+                            Swal.fire(`Bí danh: ${Course.nguoiTao.hoTen}`)
+                          }
                           style={{ cursor: "pointer" }}
                           className="fa fa-eye-slash"
                         ></i>

@@ -27,7 +27,7 @@ const OverView = (props: Props) => {
   const handlSearchListAccount = (event: ChangeEvent<HTMLInputElement>) => {
     setValueSearchListAccount(event.target.value);
   };
-  const search = () => {
+  const searchListCourse = () => {
     (async () => {
       const { value: tenKhoaHoc } = await Swal.fire({
         title: "Tìm Khóa Học",
@@ -65,6 +65,47 @@ const OverView = (props: Props) => {
           timer: 1500
         })
         dispatch(getListCourse(` `));
+      }
+    })();
+  };
+  const searchListAccount = () => {
+    (async () => {
+      const { value: tenKhoaHoc } = await Swal.fire({
+        title: "Tìm người dùng",
+        input: "text",
+        inputLabel: "Nhập thông tin",
+        inputPlaceholder: "Thông tin tìm kiếm",
+      });
+
+      if (tenKhoaHoc) {
+        if(tenKhoaHoc === "all" ){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Tìm kiếm tất cả thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          //dispatch(getListCourse(` `));
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Tìm kiếm thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          //dispatch(getListCourse(tenKhoaHoc));
+        }
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Tìm kiếm tất cả thành công!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        //dispatch(getListCourse(` `));
       }
     })();
   };
@@ -439,15 +480,17 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>
-                    <input
+                <th onClick={()=>searchListAccount()}>
+                    
+                    {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
                       type="text"
                       onChange={handlSearchListAccount}
                       name=""
                       id=""
-                    />
+                    /> */}
+                    Click tìm kiếm ...
                   </th>
                   <th>Tài Khoản</th>
                   <th>Mật Khẩu</th>
@@ -514,15 +557,17 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>
-                    <input
+                  <th onClick={()=>searchListAccount()}>
+                    
+                    {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
                       type="text"
                       onChange={handlSearchListAccount}
                       name=""
                       id=""
-                    />
+                    /> */}
+                    Click tìm kiếm ...
                   </th>
                   <th>Tài Khoản</th>
                   <th>Mật Khẩu</th>
@@ -591,7 +636,7 @@ const OverView = (props: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th onClick={()=>search()}>
+                  <th onClick={()=>searchListCourse()}>
                     {/* <input
                       placeholder="Tìm khóa học..."
                       className={styles.inputSearch}

@@ -433,7 +433,14 @@ const OverView = (props: Props) => {
                           ></i>
                         </td>
 
-                        <td>{Account.email}</td>
+                        <td>
+                          {" "}
+                          <i
+                            onClick={() => Swal.fire(`Email: ${Account.email}`)}
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
                         <td>{Account.soDt}</td>
                         <td className={styles["pending"]}>
                           {Account.tenLoaiNguoiDung}
@@ -501,7 +508,14 @@ const OverView = (props: Props) => {
                           ></i>
                         </td>
 
-                        <td>{Account.email}</td>
+                        <td>
+                          {" "}
+                          <i
+                            onClick={() => Swal.fire(`Email: ${Account.email}`)}
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
                         <td>{Account.soDt}</td>
                         <td className={styles["pending"]}>
                           {Account.tenLoaiNguoiDung}
@@ -592,9 +606,9 @@ const OverView = (props: Props) => {
                           onClick={() =>
                             Swal.fire({
                               title: `${Course.tenKhoaHoc}`,
-                              imageUrl:`${Course.hinhAnh}`,
+                              imageUrl: `${Course.hinhAnh}`,
                               imageWidth: 400,
-                              imageHeight:200,
+                              imageHeight: 200,
                               imageAlt: "Custom image",
                             })
                           }

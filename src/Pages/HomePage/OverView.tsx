@@ -5,7 +5,7 @@ import { useEffect, useState, ChangeEvent } from "react";
 import { getListCourse } from "Slices/Course";
 import { getListAccount } from "Slices/auth";
 import { useDebounce } from "usehooks-ts";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 type Props = {};
 
 const OverView = (props: Props) => {
@@ -424,7 +424,13 @@ const OverView = (props: Props) => {
                         <td>{Account.hoTen}</td>
                         <td>{Account.taiKhoan}</td>
                         <td>
-                          <i onClick={()=>Swal.fire(`Mật khẩu: ${Account.matKhau}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mật khẩu: ${Account.matKhau}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
                         </td>
 
                         <td>{Account.email}</td>
@@ -486,7 +492,13 @@ const OverView = (props: Props) => {
                         <td>{Account.hoTen}</td>
                         <td>{Account.taiKhoan}</td>
                         <td>
-                        <i onClick={()=>Swal.fire(`Mật khẩu: ${Account.matKhau}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mật khẩu: ${Account.matKhau}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
                         </td>
 
                         <td>{Account.email}</td>
@@ -551,18 +563,43 @@ const OverView = (props: Props) => {
                     <tr key={Course.maKhoaHoc}>
                       <td>{Course.tenKhoaHoc}</td>
                       <td>
-                      <i onClick={()=>Swal.fire(`Mã khóa học: ${Course.maKhoaHoc}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
+                        <i
+                          onClick={() =>
+                            Swal.fire(`Mã khóa học: ${Course.maKhoaHoc}`)
+                          }
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
                       </td>
                       <td>
-                      <i onClick={()=>Swal.fire(`Bí danh: ${Course.biDanh}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
+                        <i
+                          onClick={() => Swal.fire(`Bí danh: ${Course.biDanh}`)}
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
                       </td>
                       <td>
-                      <i onClick={()=>Swal.fire(`Mô tả: ${Course.moTa}`)} style={{cursor:"pointer"}} className="fa fa-eye-slash"></i>
+                        <i
+                          onClick={() => Swal.fire(`Mô tả: ${Course.moTa}`)}
+                          style={{ cursor: "pointer" }}
+                          className="fa fa-eye-slash"
+                        ></i>
                       </td>
                       <td className={styles["pending"]}>{Course.luotXem}</td>
-                      
+
                       <td>
-                        <i className="fa fa-image"></i>
+                        <i
+                          onClick={() =>
+                            Swal.fire({
+                              title: `${Course.tenKhoaHoc}`,
+                              imageUrl:`${Course.hinhAnh}`,
+                              imageWidth: 400,
+                              imageHeight:200,
+                              imageAlt: "Custom image",
+                            })
+                          }
+                          className="fa fa-image"
+                        ></i>
                       </td>
                       <td>{Course.ngayTao}</td>
                       <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>

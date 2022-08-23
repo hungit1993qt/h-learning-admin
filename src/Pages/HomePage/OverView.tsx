@@ -60,13 +60,7 @@ const OverView = (props: Props) => {
           dispatch(getListCourse(tenKhoaHoc));
         }
       } else {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Tìm kiếm tất cả thành công!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        
         dispatch(getListCourse(` `));
       }
     })();
@@ -117,12 +111,7 @@ const OverView = (props: Props) => {
           setValueSearchListAccountGV(tenTaikhoan);
         }
       } else {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+       
         setValueSearchListAccountGV("");
       }
     })();
@@ -146,21 +135,11 @@ const OverView = (props: Props) => {
           });
           setValueSearchListAccountHV("");
         } else {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          
           setValueSearchListAccountHV(tenTaikhoan);
         }
       } else {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+       
         setValueSearchListAccountHV("");
       }
     })();

@@ -65,12 +65,12 @@ a {
 
 .sidebar--items a:hover,
 .sidebar--bottom-items a:hover {
-  background-color: #5073fb;
+  background-color: #04AA6D;
   color: #fff;
 }
 
 #active--link {
-  background-color: #5073fb;
+  background-color: #04AA6D;
   color: #fff;
 }
 
@@ -89,7 +89,7 @@ a {
 }
 
 .icon-0 {
-  color: #5073fb;
+  color: #04AA6D;
 }
 
 .icon-1 {
@@ -292,7 +292,7 @@ h5 {
   padding: 3px 3px;
   outline: none;
   border: none;
-  background-color: #5073fb;
+  background-color: #04AA6D;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
@@ -334,7 +334,7 @@ h5 {
 }
 
 .img--box--cover {
-  border: 1px solid #5073fb;
+  border: 1px solid #04AA6D;
   padding: 2px;
   border-radius: 50%;
   display: inline-block;
@@ -354,7 +354,7 @@ h5 {
 }
 
 .scheduled {
-  color: #5073fb;
+  color: #04AA6D;
 }
 
 /* recent--patients */
@@ -394,7 +394,7 @@ th {
   font-size: 0.7rem;
   position: sticky;
   top: 0px;
-  background-color: #5073fb;
+  background-color: #04AA6D;
   color: #f1f4f8;
   padding: 5px;
   width:auto;
@@ -474,7 +474,7 @@ th {
   border-radius: 5px;
   padding:2px 5px 1px 5px;
   &::placeholder {
-    color:#5073fb;
+    color:#04AA6D;
     opacity: 1;
     font-size: 0.8rem;
     font-weight: bold;

@@ -1,13 +1,12 @@
 import styles from "_Playground/SCSS/HomePage/OverView.module.scss";
+import stylesAddModal from "_Playground/SCSS/AddModal/AddModal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { getListCourse } from "Slices/Course";
-import { getListAccount } from "Slices/auth";
-import { useDebounce } from "usehooks-ts";
+import { getListAccount, logOut } from "Slices/auth";
+// import { useDebounce } from "usehooks-ts";
 import Swal from "sweetalert2";
-import { loadPlugin } from "immer/dist/internal";
-import { LOADIPHLPAPI } from "dns";
 type Props = {};
 
 const OverView = (props: Props) => {
@@ -167,7 +166,6 @@ const OverView = (props: Props) => {
     })();
   };
   const ListCoursesGV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "GV");
-  console.log(ListCoursesGV);
   const ListCoursesHV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "HV");
   const resultSearchAccountGV = ListCoursesGV.filter((account) =>
     account.hoTen.toLocaleLowerCase().includes(valueSearchListAccountGV)
@@ -175,33 +173,178 @@ const OverView = (props: Props) => {
   const resultSearchAccountHV = ListCoursesHV.filter((account) =>
     account.hoTen.toLocaleLowerCase().includes(valueSearchListAccountHV)
   );
-  
-  
+
   const listAccountsGV =
     resultSearchAccountGV.length > 0 ? resultSearchAccountGV : ListCoursesGV;
   const listAccountsHV =
-    resultSearchAccountHV.length > 0 ? resultSearchAccountHV :  ListCoursesHV;
-
+    resultSearchAccountHV.length > 0 ? resultSearchAccountHV : ListCoursesHV;
+  const [stylesAddCourseModal, setShowAddCourseModal] = useState(false);
+  const [stylesAddGVModal, setShowAddGVModal] = useState(false);
   return (
-    <section className={styles["main"]}>
+    <>
       <div
         className={
-          actionMenu
-            ? `${styles.sidebar} ${styles.active}`
-            : `${styles.sidebar}`
+          stylesAddCourseModal
+            ? `${stylesAddModal.modal} ${stylesAddModal.showAddModal}`
+            : `${stylesAddModal.modal}`
         }
       >
-        {/* ${styles.active} */}
-        <ul className={styles["sidebar--items"]}>
-          <li>
-            <a href="#" id={styles["active--link"]}>
-              <span className={`${styles.icon} ${styles["icon-1"]}`}>
-                <i className="fa fa-th-large"></i>
-              </span>
-              <span className={styles["sidebar--item"]}>Tổng Quan</span>
-            </a>
-          </li>
-          {/* <li>
+        <form
+          className={`${stylesAddModal["modal-content"]} ${stylesAddModal.animate}`}
+        >
+          <div className={stylesAddModal["container"]}>
+            <label>
+              <b>Mã Khóa Học</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Vui lòng điền mã khóa học"
+              required
+            />
+            <label>
+              <b>Bí Danh</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền bí danh" required />
+            <label>
+              <b>Tên Khóa Học</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Vui lòng điền tên khóa học"
+              required
+            />
+            <textarea rows={4} defaultValue={""} />
+            <input type="text" placeholder="Vui lòng điền mô tả" required />
+            <label>
+              <b>Lượt Xem</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền lượt xem" required />
+            <label>
+              <b>Đánh Giá</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền đánh giá" required />
+            <label>
+              <b>Hình Ảnh</b>
+            </label>
+            <input type="text" placeholder="Vui lòng chọn hình ảnh" required />
+            <label>
+              <b>Mã Nhóm</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền mã nhóm" required />
+            <label>
+              <b>Ngày Tạo</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền ngày tạo" required />
+            <label>
+              <b>Mã Danh Mục Khóa Học</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền mã nhóm" required />
+            <label>
+              <b>Tài Khoản Người Tạo</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Vui lòng điền tài khoản người tạo"
+              required
+            />
+            <div className={stylesAddModal["gr-btn"]}>
+              <button onClick={() => setShowAddCourseModal(false)}>
+                Thoát
+              </button>
+              <button type="submit">Xóa</button>
+              <button>Thêm</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div
+        className={
+          stylesAddGVModal
+            ? `${stylesAddModal.modal} ${stylesAddModal.showAddModal}`
+            : `${stylesAddModal.modal}`
+        }
+      >
+        <form
+          className={`${stylesAddModal["modal-content"]} ${stylesAddModal.animate}`}
+        >
+          <div className={stylesAddModal["container"]}>
+            <label>
+              <b>Tài Khoản</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Vui lòng điền mã khóa học"
+              required
+            />
+            <label>
+              <b>Mật Khẩu</b>
+            </label>
+            <input
+              type="password"
+              placeholder="Vui lòng điền mật khẩu"
+              required
+            />
+            <label>
+              <b>Họ Tên</b>
+            </label>
+            <input type="text" placeholder="Vui lòng điền họ tên " required />
+            <label>
+              <b>Số Điện Thoại</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Vui lòng điền số điện thoại"
+              required
+            />
+            <label>
+              <b>Loại Tài Khoản</b>
+            </label>
+            <select>
+              <option value="GV">Giáo Vụ</option>
+              <option value="HV">Học Viên</option>
+            </select>
+            <label>
+              <b>Nhóm</b>
+            </label>
+            <select>
+              <option value="GP01">GP01</option>
+              <option value="GP02">GP02</option>
+            </select><br/>
+            <label>
+              <b>Email</b>
+            </label>
+            <input type="email" placeholder="Vui lòng điền email" required />
+            
+            <div className={stylesAddModal["gr-btn"]}>
+              <button onClick={() => setShowAddGVModal(false)}>
+                Thoát
+              </button>
+              <button>Xóa</button>
+              <button>Thêm</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <section className={styles["main"]}>
+        <div
+          className={
+            actionMenu
+              ? `${styles.sidebar} ${styles.active}`
+              : `${styles.sidebar}`
+          }
+        >
+          {/* ${styles.active} */}
+          <ul className={styles["sidebar--items"]}>
+            <li>
+              <a href="#" id={styles["active--link"]}>
+                <span className={`${styles.icon} ${styles["icon-1"]}`}>
+                  <i className="fa fa-th-large"></i>
+                </span>
+                <span className={styles["sidebar--item"]}>Tổng Quan</span>
+              </a>
+            </li>
+            {/* <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-2"]}`}>
                 <i className="fa fa-calendar-alt"></i>
@@ -209,34 +352,34 @@ const OverView = (props: Props) => {
               <span className={styles["sidebar--item"]}>QUẢN LÝ NGƯỜI DÙNG</span>
             </a>
           </li> */}
-          <li>
-            <a href="#">
-              <span className={`${styles.icon} ${styles["icon-3"]}`}>
-                <i className="fa fa-chalkboard-teacher"></i>
-              </span>
-              <span
-                className={styles["sidebar--item"]}
-                style={{ whiteSpace: "nowrap" }}
-              >
-                Quản lý giáo vụ
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className={`${styles.icon} ${styles["icon-4"]}`}>
-                <i className="fa fa-user"></i>
-              </span>
-              <span
-                className={styles["sidebar--item"]}
-                style={{ whiteSpace: "nowrap" }}
-              >
-                Quản lý học viên
-              </span>
-            </a>
-          </li>
+            <li>
+              <a href="#">
+                <span className={`${styles.icon} ${styles["icon-3"]}`}>
+                  <i className="fa fa-chalkboard-teacher"></i>
+                </span>
+                <span
+                  className={styles["sidebar--item"]}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Quản lý giáo vụ
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span className={`${styles.icon} ${styles["icon-4"]}`}>
+                  <i className="fa fa-user"></i>
+                </span>
+                <span
+                  className={styles["sidebar--item"]}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Quản lý học viên
+                </span>
+              </a>
+            </li>
 
-          {/* <li>
+            {/* <li>
             <a href="#">
               <span className={`${styles.icon} ${styles["icon-5"]}`}>
                 <i className="fa fa-chart-line"></i>
@@ -252,199 +395,204 @@ const OverView = (props: Props) => {
               <span className={styles["sidebar--item"]}>Support</span>
             </a>
           </li> */}
-        </ul>
-        <ul className={styles["sidebar--bottom-items"]}>
-          <li>
-            <a href="#">
-              <span className={`${styles.icon} ${styles["icon-7"]}`}>
-                <i className="fa fa-cogs"></i>
-              </span>
-              <span
-                className={styles["sidebar--item"]}
-                style={{ whiteSpace: "nowrap" }}
-              >
-                Cài đặt
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className={`${styles.icon} ${styles["icon-8"]}`}>
-                <i className="fa fa-sign-out-alt"></i>
-              </span>
-              <span
-                className={styles["sidebar--item"]}
-                style={{ whiteSpace: "nowrap" }}
-              >
-                Đăng xuất
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div
-        className={
-          actionMenu
-            ? `${styles["main--content"]} ${styles.active}`
-            : `${styles["main--content"]}`
-        }
-      >
-        <div className={styles["overview"]}>
-          <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Tổng Quan</h2>
-            <select name="date" id="date" className={styles["dropdown"]}>
-              <option value="today">Hôm nay</option>
-              <option value="lastweek">Tuần trước</option>
-              <option value="lastmonth">Tháng trước</option>
-              <option value="lastyear">Năm trước</option>
-              <option value="alltime">Tất cả</option>
-            </select>
-          </div>
-          <div className={styles["cards"]}>
-            <div className={`${styles.card} ${styles[`card-1`]} `}>
-              <div className={styles["card--data"]}>
-                <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Số Lượng Giáo Vụ</h5>
-                  <h1>{totalTeacher}</h1>
-                </div>
-                <i className={`fa fa-user ${styles[`card--icon--lg`]}`} />
-              </div>
-              <div className={styles["card--stats"]}>
-                <span>
-                  <i
-                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
-                      styles[`stat--icon`]
-                    }`}
-                  />
-                  65%
+          </ul>
+          <ul className={styles["sidebar--bottom-items"]}>
+            <li>
+              <a href="#">
+                <span className={`${styles.icon} ${styles["icon-7"]}`}>
+                  <i className="fa fa-cogs"></i>
                 </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
-                      styles[`up--arrow`]
-                    }`}
-                  />
-                  10
+                <span
+                  className={styles["sidebar--item"]}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Cài đặt
                 </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
-                      styles[`down--arrow`]
-                    }`}
-                  />
-                  2
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span className={`${styles.icon} ${styles["icon-8"]}`}>
+                  <i className="fa fa-sign-out-alt"></i>
                 </span>
-              </div>
-            </div>
-            <div className={`${styles.card} ${styles[`card-2`]} `}>
-              <div className={styles["card--data"]}>
-                <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Số Lượng Học Viên</h5>
-                  <h1>{totalStudent}</h1>
-                </div>
-                <i className={`fa fa-user-alt ${styles[`card--icon--lg`]}`} />
-              </div>
-              <div className={styles["card--stats"]}>
-                <span>
-                  <i
-                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
-                      styles[`stat--icon`]
-                    }`}
-                  />
-                  65%
+                <span
+                  onClick={() => dispatch(logOut())}
+                  className={styles["sidebar--item"]}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Đăng xuất
                 </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
-                      styles[`up--arrow`]
-                    }`}
-                  />
-                  10
-                </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
-                      styles[`down--arrow`]
-                    }`}
-                  />
-                  2
-                </span>
-              </div>
-            </div>
-            <div className={`${styles.card} ${styles[`card-3`]} `}>
-              <div className={styles["card--data"]}>
-                <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>Số Lượng Khóa Học</h5>
-                  <h1>{listCourse.length}</h1>
-                </div>
-                <i className={`fa fa-book-open ${styles[`card--icon--lg`]}`} />
-              </div>
-              <div className={styles["card--stats"]}>
-                <span>
-                  <i
-                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
-                      styles[`stat--icon`]
-                    }`}
-                  />
-                  65%
-                </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
-                      styles[`up--arrow`]
-                    }`}
-                  />
-                  10
-                </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
-                      styles[`down--arrow`]
-                    }`}
-                  />
-                  2
-                </span>
-              </div>
-            </div>
-            <div className={`${styles.card} ${styles[`card-4`]} `}>
-              <div className={styles["card--data"]}>
-                <div className={styles["card--content"]}>
-                  <h5 className={styles["card--title"]}>SL Khóa Học Đăng Ký</h5>
-                  <h1>15</h1>
-                </div>
-                <i className={`fa fa-check ${styles[`card--icon--lg`]}`} />
-              </div>
-              <div className={styles["card--stats"]}>
-                <span>
-                  <i
-                    className={`fa fa-chart-line ${styles[`card--icon`]} ${
-                      styles[`stat--icon`]
-                    }`}
-                  />
-                  65%
-                </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-up ${styles[`card--icon`]} ${
-                      styles[`up--arrow`]
-                    }`}
-                  />
-                  10
-                </span>
-                <span>
-                  <i
-                    className={`fa fa-angle-down ${styles[`card--icon`]} ${
-                      styles[`down--arrow`]
-                    }`}
-                  />
-                  2
-                </span>
-              </div>
-            </div>
-          </div>
+              </a>
+            </li>
+          </ul>
         </div>
-        {/* <div className={styles["doctors"]}>
+
+        <div
+          className={
+            actionMenu
+              ? `${styles["main--content"]} ${styles.active}`
+              : `${styles["main--content"]}`
+          }
+        >
+          <div className={styles["overview"]}>
+            <div className={styles["title"]}>
+              <h2 className={styles["section--title"]}>Tổng Quan</h2>
+              <select name="date" id="date" className={styles["dropdown"]}>
+                <option value="today">Hôm nay</option>
+                <option value="lastweek">Tuần trước</option>
+                <option value="lastmonth">Tháng trước</option>
+                <option value="lastyear">Năm trước</option>
+                <option value="alltime">Tất cả</option>
+              </select>
+            </div>
+            <div className={styles["cards"]}>
+              <div className={`${styles.card} ${styles[`card-1`]} `}>
+                <div className={styles["card--data"]}>
+                  <div className={styles["card--content"]}>
+                    <h5 className={styles["card--title"]}>Số Lượng Giáo Vụ</h5>
+                    <h1>{totalTeacher}</h1>
+                  </div>
+                  <i className={`fa fa-user ${styles[`card--icon--lg`]}`} />
+                </div>
+                <div className={styles["card--stats"]}>
+                  <span>
+                    <i
+                      className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                        styles[`stat--icon`]
+                      }`}
+                    />
+                    65%
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                        styles[`up--arrow`]
+                      }`}
+                    />
+                    10
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                        styles[`down--arrow`]
+                      }`}
+                    />
+                    2
+                  </span>
+                </div>
+              </div>
+              <div className={`${styles.card} ${styles[`card-2`]} `}>
+                <div className={styles["card--data"]}>
+                  <div className={styles["card--content"]}>
+                    <h5 className={styles["card--title"]}>Số Lượng Học Viên</h5>
+                    <h1>{totalStudent}</h1>
+                  </div>
+                  <i className={`fa fa-user-alt ${styles[`card--icon--lg`]}`} />
+                </div>
+                <div className={styles["card--stats"]}>
+                  <span>
+                    <i
+                      className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                        styles[`stat--icon`]
+                      }`}
+                    />
+                    65%
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                        styles[`up--arrow`]
+                      }`}
+                    />
+                    10
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                        styles[`down--arrow`]
+                      }`}
+                    />
+                    2
+                  </span>
+                </div>
+              </div>
+              <div className={`${styles.card} ${styles[`card-3`]} `}>
+                <div className={styles["card--data"]}>
+                  <div className={styles["card--content"]}>
+                    <h5 className={styles["card--title"]}>Số Lượng Khóa Học</h5>
+                    <h1>{listCourse.length}</h1>
+                  </div>
+                  <i
+                    className={`fa fa-book-open ${styles[`card--icon--lg`]}`}
+                  />
+                </div>
+                <div className={styles["card--stats"]}>
+                  <span>
+                    <i
+                      className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                        styles[`stat--icon`]
+                      }`}
+                    />
+                    65%
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                        styles[`up--arrow`]
+                      }`}
+                    />
+                    10
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                        styles[`down--arrow`]
+                      }`}
+                    />
+                    2
+                  </span>
+                </div>
+              </div>
+              <div className={`${styles.card} ${styles[`card-4`]} `}>
+                <div className={styles["card--data"]}>
+                  <div className={styles["card--content"]}>
+                    <h5 className={styles["card--title"]}>
+                      SL Khóa Học Đăng Ký
+                    </h5>
+                    <h1>15</h1>
+                  </div>
+                  <i className={`fa fa-check ${styles[`card--icon--lg`]}`} />
+                </div>
+                <div className={styles["card--stats"]}>
+                  <span>
+                    <i
+                      className={`fa fa-chart-line ${styles[`card--icon`]} ${
+                        styles[`stat--icon`]
+                      }`}
+                    />
+                    65%
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-up ${styles[`card--icon`]} ${
+                        styles[`up--arrow`]
+                      }`}
+                    />
+                    10
+                  </span>
+                  <span>
+                    <i
+                      className={`fa fa-angle-down ${styles[`card--icon`]} ${
+                        styles[`down--arrow`]
+                      }`}
+                    />
+                    2
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className={styles["doctors"]}>
           <div className={styles["title"]}>
             <h2 className={styles["section--title"]}>Doctors</h2>
             <div className={styles["doctors--right--btns"]}>
@@ -522,20 +670,23 @@ const OverView = (props: Props) => {
             </a>
           </div>
         </div> */}
-        <div className={styles["tableListUser"]}>
-          <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Danh Sách Giáo Vụ</h2>
-            <button className={styles["add"]}>
-              <i className="fa fa-plus"></i>
-              Thêm
-            </button>
-          </div>
-          <div className={styles["table"]}>
-            <table>
-              <thead>
-                <tr>
-                  <th onClick={() => searchListAccountGV()}>
-                    {/* <input
+          <div className={styles["tableListUser"]}>
+            <div className={styles["title"]}>
+              <h2 className={styles["section--title"]}>Danh Sách Giáo Vụ</h2>
+              <button
+                onClick={() => setShowAddGVModal(true)}
+                className={styles["add"]}
+              >
+                <i className="fa fa-plus"></i>
+                Thêm
+              </button>
+            </div>
+            <div className={styles["table"]}>
+              <table>
+                <thead>
+                  <tr>
+                    <th onClick={() => searchListAccountGV()}>
+                      {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
                       type="text"
@@ -543,73 +694,73 @@ const OverView = (props: Props) => {
                       name=""
                       id=""
                     /> */}
-                    Click tìm kiếm ...
-                  </th>
-                  <th>Tài Khoản</th>
-                  <th>Mật Khẩu</th>
+                      Click tìm kiếm ...
+                    </th>
+                    <th>Tài Khoản</th>
+                    <th>Mật Khẩu</th>
 
-                  <th>Email</th>
-                  <th>SĐT</th>
-                  <th>Cấp Bậc</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {listAccountsGV.map((Account) => {
-                  return (
-                    <tr key={Account.taiKhoan}>
-                      <td>{Account.hoTen}</td>
-                      <td>{Account.taiKhoan}</td>
-                      <td>
-                        <i
-                          onClick={() =>
-                            Swal.fire(`Mật khẩu: ${Account.matKhau}`)
-                          }
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Cấp Bậc</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listAccountsGV.map((Account) => {
+                    return (
+                      <tr key={Account.taiKhoan}>
+                        <td>{Account.hoTen}</td>
+                        <td>{Account.taiKhoan}</td>
+                        <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mật khẩu: ${Account.matKhau}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
 
-                      <td>
-                        {" "}
-                        <i
-                          onClick={() => Swal.fire(`Email: ${Account.email}`)}
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
-                      <td>{Account.soDt}</td>
-                      <td className={styles["pending"]}>
-                        {Account.tenLoaiNguoiDung}
-                      </td>
+                        <td>
+                          {" "}
+                          <i
+                            onClick={() => Swal.fire(`Email: ${Account.email}`)}
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
+                        <td>{Account.soDt}</td>
+                        <td className={styles["pending"]}>
+                          {Account.tenLoaiNguoiDung}
+                        </td>
 
-                      <td>
-                        <span>
-                          <i className={`fa fa-edit ${styles.edit}`}></i>
-                          <i className={`fa fa-trash ${styles.delete}`}></i>
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td>
+                          <span>
+                            <i className={`fa fa-edit ${styles.edit}`}></i>
+                            <i className={`fa fa-trash ${styles.delete}`}></i>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div className={styles["tableListUser"]}>
-          <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
-            <button className={styles["add"]}>
-              <i className="fa fa-plus"></i>
-              Thêm
-            </button>
-          </div>
-          <div className={styles["table"]}>
-            <table>
-              <thead>
-                <tr>
-                  <th onClick={() => searchListAccountHV()}>
-                    {/* <input
+          <div className={styles["tableListUser"]}>
+            <div className={styles["title"]}>
+              <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
+              <button  onClick={() => setShowAddGVModal(true)} className={styles["add"]}>
+                <i className="fa fa-plus"></i>
+                Thêm
+              </button>
+            </div>
+            <div className={styles["table"]}>
+              <table>
+                <thead>
+                  <tr>
+                    <th onClick={() => searchListAccountHV()}>
+                      {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
                       type="text"
@@ -617,75 +768,78 @@ const OverView = (props: Props) => {
                       name=""
                       id=""
                     /> */}
-                    Click tìm kiếm ...
-                  </th>
-                  <th>Tài Khoản</th>
-                  <th>Mật Khẩu</th>
+                      Click tìm kiếm ...
+                    </th>
+                    <th>Tài Khoản</th>
+                    <th>Mật Khẩu</th>
 
-                  <th>Email</th>
-                  <th>SĐT</th>
-                  <th>Cấp Bậc</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {listAccountsHV.map((Account) => {
-                  return (
-                    <tr key={Account.taiKhoan}>
-                      <td>{Account.hoTen}</td>
-                      <td>{Account.taiKhoan}</td>
-                      <td>
-                        <i
-                          onClick={() =>
-                            Swal.fire(`Mật khẩu: ${Account.matKhau}`)
-                          }
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Cấp Bậc</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listAccountsHV.map((Account) => {
+                    return (
+                      <tr key={Account.taiKhoan}>
+                        <td>{Account.hoTen}</td>
+                        <td>{Account.taiKhoan}</td>
+                        <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mật khẩu: ${Account.matKhau}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
 
-                      <td>
-                        {" "}
-                        <i
-                          onClick={() => Swal.fire(`Email: ${Account.email}`)}
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
-                      <td>{Account.soDt}</td>
-                      <td className={styles["pending"]}>
-                        {Account.tenLoaiNguoiDung}
-                      </td>
+                        <td>
+                          {" "}
+                          <i
+                            onClick={() => Swal.fire(`Email: ${Account.email}`)}
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
+                        <td>{Account.soDt}</td>
+                        <td className={styles["pending"]}>
+                          {Account.tenLoaiNguoiDung}
+                        </td>
 
-                      <td>
-                        <span>
-                          <i className={`fa fa-edit ${styles.edit}`}></i>
-                          <i className={`fa fa-trash ${styles.delete}`}></i>
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td>
+                          <span>
+                            <i className={`fa fa-edit ${styles.edit}`}></i>
+                            <i className={`fa fa-trash ${styles.delete}`}></i>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
 
-        <div className={styles["list-Course"]}>
-          <div className={styles["title"]}>
-            <h2 className={styles["section--title"]}>Danh Sách Khóa Học</h2>
+          <div className={styles["list-Course"]}>
+            <div className={styles["title"]}>
+              <h2 className={styles["section--title"]}>Danh Sách Khóa Học</h2>
 
-            <button className={styles["add"]}>
-              <i className="fa fa-plus"></i>
-              Thêm
-            </button>
-          </div>
-          <div className={styles["tableListCourse"]}>
-            <table>
-              <thead>
-                <tr>
-                  <th onClick={() => searchListCourse()}>
-                    {/* <input
+              <button
+                onClick={() => setShowAddCourseModal(true)}
+                className={styles["add"]}
+              >
+                <i className="fa fa-plus"></i>
+                Thêm
+              </button>
+            </div>
+            <div className={styles["tableListCourse"]}>
+              <table>
+                <thead>
+                  <tr>
+                    <th onClick={() => searchListCourse()}>
+                      {/* <input
                       placeholder="Tìm khóa học..."
                       className={styles.inputSearch}
                       type="text"
@@ -693,90 +847,93 @@ const OverView = (props: Props) => {
                       name=""
                       id=""
                     /> */}
-                    Click tìm kiếm ...
-                  </th>
-                  <th>Mã Khóa Học</th>
-                  <th>Bí Danh</th>
+                      Click tìm kiếm ...
+                    </th>
+                    <th>Mã Khóa Học</th>
+                    <th>Bí Danh</th>
 
-                  <th>Mô Tả</th>
-                  <th>Lượt Xem</th>
-                  <th>Ảnh</th>
-                  <th>Ngày Tạo</th>
-                  <th>Danh Mục </th>
-                  <th>Người Tạo</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {listCourse.map((Course) => {
-                  return (
-                    <tr key={Course.maKhoaHoc}>
-                      <td>{Course.tenKhoaHoc}</td>
-                      <td>
-                        <i
-                          onClick={() =>
-                            Swal.fire(`Mã khóa học: ${Course.maKhoaHoc}`)
-                          }
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
-                      <td>
-                        <i
-                          onClick={() => Swal.fire(`Bí danh: ${Course.biDanh}`)}
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
-                      <td>
-                        <i
-                          onClick={() => Swal.fire(`Mô tả: ${Course.moTa}`)}
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
-                      <td className={styles["pending"]}>{Course.luotXem}</td>
+                    <th>Mô Tả</th>
+                    <th>Lượt Xem</th>
+                    <th>Ảnh</th>
+                    <th>Ngày Tạo</th>
+                    <th>Danh Mục </th>
+                    <th>Người Tạo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listCourse.map((Course) => {
+                    return (
+                      <tr key={Course.maKhoaHoc}>
+                        <td>{Course.tenKhoaHoc}</td>
+                        <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mã khóa học: ${Course.maKhoaHoc}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
+                        <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Bí danh: ${Course.biDanh}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
+                        <td>
+                          <i
+                            onClick={() => Swal.fire(`Mô tả: ${Course.moTa}`)}
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
+                        <td className={styles["pending"]}>{Course.luotXem}</td>
 
-                      <td>
-                        <i
-                          onClick={() =>
-                            Swal.fire({
-                              title: `${Course.tenKhoaHoc}`,
-                              imageUrl: `${Course.hinhAnh}`,
-                              imageWidth: 400,
-                              imageHeight: 200,
-                              imageAlt: "Custom image",
-                            })
-                          }
-                          className="fa fa-image"
-                        ></i>
-                      </td>
-                      <td>{Course.ngayTao}</td>
-                      <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
-                      <td>
-                        <i
-                          onClick={() =>
-                            Swal.fire(`Bí danh: ${Course.nguoiTao.hoTen}`)
-                          }
-                          style={{ cursor: "pointer" }}
-                          className="fa fa-eye-slash"
-                        ></i>
-                      </td>
-                      <td>
-                        <span>
-                          <i className={`fa fa-edit ${styles.edit}`}></i>
-                          <i className={`fa fa-trash ${styles.delete}`}></i>
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire({
+                                title: `${Course.tenKhoaHoc}`,
+                                imageUrl: `${Course.hinhAnh}`,
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: "Custom image",
+                              })
+                            }
+                            className="fa fa-image"
+                          ></i>
+                        </td>
+                        <td>{Course.ngayTao}</td>
+                        <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
+                        <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Bí danh: ${Course.nguoiTao.hoTen}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
+                        <td>
+                          <span>
+                            <i className={`fa fa-edit ${styles.edit}`}></i>
+                            <i className={`fa fa-trash ${styles.delete}`}></i>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

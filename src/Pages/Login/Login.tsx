@@ -4,9 +4,10 @@ import { useForm, FieldErrors } from "react-hook-form";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LoginValue } from "Interface/loginValue";
-import { login } from "Slices/auth";
+import { login, logOut } from "Slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,11 +36,24 @@ const Login = () => {
   );
   if (admin) {
     if (getUserLocalStorage) {
-      navigate("/");
+      if (getUserLocalStorage.maLoaiNguoiDung === "GV") {
+        navigate("/quan-ly");
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Tài khoản không đúng cấp",
+          text: "Vui lòng đăng nhập đúng tài khoản",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        dispatch(logOut());
+      }
     }
   }
+ 
   return (
-   
+    <section className={styles["login"]}>
       <div className={styles["content"]}>
         <h1 className={styles["heading"]}>
           ĐĂNG <span> NHẬP</span>
@@ -94,11 +108,8 @@ const Login = () => {
             <span></span>
           </button>
         </form>
-        <span className={styles["footer-form"]}>
-          Nhấn vào <NavLink to={"/register"}> đây</NavLink> nếu bạn chưa có tài
-          khoản <br/> Nhấn vào <NavLink to={"/"}>đây</NavLink> để về trang chủ
-        </span>
       </div>
+    </section>
   );
 };
 

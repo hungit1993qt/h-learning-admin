@@ -28,25 +28,26 @@ function App() {
     <ErrorBoundary>
       {/* Suspense dùng để hiện thị ra fallback UI khi component đang được load */}
       <Suspense fallback={<h1>Loading...</h1>}>
-        
         <BrowserRouter>
-          <Routes>
-          <Route path="login" element={<Login />} />
+          <Routes>           
+            <Route index element={<Login />} />
             <Route path="" element={<HomeTemplate />}>
-              <Route path="contact" element={<Contact />} />
-
-              <Route path="register" element={<Register />} />
-              <Route path="about" element={<About />} />
               <Route
-                path="checkout"
+                path="register"
                 element={
                   <ProtectedRoute>
-                    <Checkout />
+                    <Register />
                   </ProtectedRoute>
                 }
               />
-              <Route path="movies/add" element={<AddMovie />} />
-              <Route index element={<HomePage />} />
+              <Route
+                path="quan-ly"
+                element={
+                  <ProtectedRoute>
+                    <HomePage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="*" element={<Navigate to={""} />} />
             </Route>
           </Routes>

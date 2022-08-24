@@ -1,8 +1,8 @@
 // Một số thư viện làm việc với form trong React: formik, react-final-form, react-hook-form
 import styles from "_Playground/SCSS/Login/Login.module.scss";
 import { useForm, FieldErrors } from "react-hook-form";
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginValue } from "Interface/loginValue";
 import { login, logOut } from "Slices/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,24 +34,26 @@ const Login = () => {
   const getUserLocalStorage = JSON.parse(
     localStorage.getItem("adminLogin") as string
   );
-  if (admin) {
-    if (getUserLocalStorage) {
-      if (getUserLocalStorage.maLoaiNguoiDung === "GV") {
-        navigate("/quan-ly");
-      } else {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Tài khoản không đúng cấp",
-          text: "Vui lòng đăng nhập đúng tài khoản",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        dispatch(logOut());
+  useEffect(() => {
+    if (admin) {
+      if (getUserLocalStorage) {
+        if (getUserLocalStorage.maLoaiNguoiDung === "GV") {
+          navigate("/quan-ly");
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Tài khoản không đúng cấp",
+            text: "Vui lòng đăng nhập đúng tài khoản",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          dispatch(logOut());
+        }
       }
     }
-  }
- 
+  }, [admin, getUserLocalStorage]);
+
   return (
     <section className={styles["login"]}>
       <div className={styles["content"]}>

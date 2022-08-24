@@ -10,7 +10,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AddValueCourse } from "Interface/AddValueCourse";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string } from "yup";
+import { object, string, number } from "yup";
+import Moment from "moment";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 //npm install react-datepicker --save
 //npm install --save @types/react-datepicker
 // import { useDebounce } from "usehooks-ts";
@@ -20,14 +24,17 @@ const schema = object({
   tenKhoaHoc: string().required("Tên khóa học không được để trống"),
   biDanh: string().required("Bí danh không được để trống"),
   moTa: string().required("Mô tả không được để trống"),
-  luotXem: string().required("Lượt xem không được để trống"),
-  danhGia: string().required("Đánh giá không được để trống"),
-  ngayTao: string().required("Ngày tạo không được để trống"),
-  maDanhMucKhoaHoc: string().required(
-    "Mã danh mục khóa học không được để trống"
-  ),
-  nguoiTao: string().required("Người tạo không được để trống"),
+  luotXem: number()
+    .required("Lượt xem không được để trống")
+
+    .integer("Không đúng định dạng số"),
+  ngayTao: string().required("Lượt xem không được để trống"),
+  danhGia: number()
+    .required("Đánh giá không được để trống")
+
+    .integer("Không đúng định dạng số"),
 });
+Moment.locale("en");
 
 const OverView = () => {
   // const [valueSearchListCourse, setValueSearchListCourse] =
@@ -201,25 +208,43 @@ const OverView = () => {
 
   const [startDate, setDate] = useState(new Date());
   const today = new Date();
-  const selectDateHandler = (day: any) => {
-    setDate(day);
-  };
+
   const getValueLocalstorage = JSON.parse(
     localStorage.getItem("adminLogin") as string
   );
+  const date: string = Moment(startDate).format("DD/MM/YYYY");
+
   const {
     register,
     handleSubmit,
+    resetField,
     formState: { errors },
   } = useForm<AddValueCourse>({
+    defaultValues: {
+      maNhom: "GP01",
+      taiKhoanNguoiTao: getValueLocalstorage.taiKhoan,
+    },
     mode: "onTouched",
     // cấu hình validation bằng yup schema
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (values: AddValueCourse) => {
+    values.ngayTao = date;
+
     console.log(values);
+    handleResetForm();
   };
+  const handleResetForm = () => {
+    resetField("maKhoaHoc");
+    resetField("tenKhoaHoc");
+    resetField("biDanh");
+    resetField("luotXem");
+    resetField("moTa");
+    resetField("hinhAnh");
+  };
+  //const date: string = startDate.toLocaleDateString("en-CA");
+
   return (
     <>
       <div
@@ -267,13 +292,7 @@ const OverView = () => {
               />
               {errors.tenKhoaHoc && <span>{errors.tenKhoaHoc?.message}</span>}
             </div>
-            <div>
-              <label>
-                <b>Mô Tả</b>
-              </label>
-              <textarea rows={4} defaultValue={""} {...register("moTa")} />
-              {errors.moTa && <span>{errors.moTa?.message}</span>}
-            </div>
+
             <div>
               <label>
                 <b>Lượt Xem</b>
@@ -309,19 +328,7 @@ const OverView = () => {
               />
             </div>
             {errors.hinhAnh && <span>{errors.hinhAnh?.message}</span>}
-            <div>
-              <label>
-                <b>Mã Nhóm</b>
-              </label>
-              <select {...register("maNhom")}>
-                <option value="GP05">GP05</option>
-                <option value="GP04">GP04</option>
-                <option value="GP03">GP03</option>
-                <option value="GP02">GP02</option>
-                <option value="GP01">GP01</option>
-              </select>
-              {errors.maNhom && <span>{errors.maNhom?.message}</span>}
-            </div>
+
             <div>
               <label>
                 <b>Ngày Tạo</b>
@@ -329,7 +336,10 @@ const OverView = () => {
               <DatePicker
                 dateFormat="dd/MM/yyy"
                 selected={startDate}
-                onChange={selectDateHandler}
+                {...register("ngayTao", { value: startDate.toString() })}
+                onChange={(day: any) => {
+                  setDate(day);
+                }}
                 maxDate={today}
                 todayButton={"Today"}
                 className={stylesAddModal["dayPicker"]}
@@ -348,11 +358,18 @@ const OverView = () => {
             </div>
             <div>
               <label>
+                <b>Mã Nhóm</b>
+              </label>
+              <input type="text" {...register("maNhom")} disabled></input>
+              {errors.maNhom && <span>{errors.maNhom?.message}</span>}
+            </div>
+            <div>
+              <label>
                 <b>Tài Khoản Người Tạo</b>
               </label>
               <input
                 type="text"
-                value={getValueLocalstorage.taiKhoan}
+                value={`${getValueLocalstorage.taiKhoan}`}
                 {...register("taiKhoanNguoiTao")}
                 disabled
               />
@@ -360,12 +377,51 @@ const OverView = () => {
                 <span>{errors.taiKhoanNguoiTao?.message}</span>
               )}
             </div>
+            <div>
+              <label>
+                <b>Mô Tả</b>
+              </label>
+              {/* <textarea rows={4} defaultValue={""} {...register("moTa")} /> */}
+              {/* {errors.moTa && <span>{errors.moTa?.message}</span>} */}
+              <CKEditor
+                editor={ClassicEditor}
+                // config={config}
+                data="<p>Hello from CKEditor 5!</p>"
+                onInit={(editor:any) => {
+                  // You can store the "editor" and use when it is needed.
+                  console.log(
+                    "Editor is ready to use!",
+                    editor,
+                    Array.from(editor.ui.componentFactory.names())
+                  );
+                }}
+                onChange={(event:any, editor:any) => {
+                  const data = editor.getData();
+                  console.log({ event, editor, data });
+                }}
+                onBlur={(event:any, editor:any) => {
+                  console.log("Blur.", editor);
+                }}
+                onFocus={(event:any, editor:any) => {
+                  console.log("Focus.", editor);
+                }}
+              />
+             
+            </div>
 
             <div className={stylesAddModal["gr-btn"]}>
-              <button onClick={() => setShowAddCourseModal(false)}>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowAddCourseModal(false);
+                  handleResetForm();
+                }}
+              >
                 Thoát
               </button>
-              <button>Xóa</button>
+              <button type="button" onClick={handleResetForm}>
+                Xóa
+              </button>
               <button>Thêm</button>
             </div>
           </div>

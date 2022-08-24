@@ -5,6 +5,10 @@ import { AppDispatch, RootState } from "configStore";
 import { useEffect, useState } from "react";
 import { getListCourse } from "Slices/Course";
 import { getListAccount, logOut } from "Slices/auth";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+//npm install react-datepicker --save
+//npm install --save @types/react-datepicker
 // import { useDebounce } from "usehooks-ts";
 import Swal from "sweetalert2";
 type Props = {};
@@ -151,17 +155,17 @@ const OverView = (props: Props) => {
       }
     })();
   };
-  const NotDataSearch = ()=>{
+  const NotDataSearch = () => {
     Swal.fire({
       position: "center",
       icon: "error",
       showConfirmButton: false,
-     
+
       title: "Không dữ liệu",
       text: "Thông tin bạn tìm kiếm không có trong hệ thống.",
-      timer:2000,
-    })
-  }
+      timer: 2000,
+    });
+  };
   const ListCoursesGV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "GV");
   const ListCoursesHV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "HV");
   const resultSearchAccountGV = ListCoursesGV.filter((account) =>
@@ -178,6 +182,12 @@ const OverView = (props: Props) => {
     resultSearchAccountHV.length > 0 ? resultSearchAccountHV : [];
   const [stylesAddCourseModal, setShowAddCourseModal] = useState(false);
   const [stylesAddGVModal, setShowAddGVModal] = useState(false);
+
+  const [startDate, setDate] = useState(new Date());
+  const today = new Date();
+  const selectDateHandler = (day: any) => {
+    setDate(day);
+  };
   return (
     <>
       <div
@@ -194,56 +204,72 @@ const OverView = (props: Props) => {
             <label>
               <b>Mã Khóa Học</b>
             </label>
-            <input
-              type="text"
-              placeholder="Vui lòng điền mã khóa học"
-              required
-            />
+            <input type="text" placeholder="Vui lòng điền mã khóa học" />
             <label>
               <b>Bí Danh</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền bí danh" required />
+            <input type="text" placeholder="Vui lòng điền bí danh" />
             <label>
               <b>Tên Khóa Học</b>
             </label>
-            <input
-              type="text"
-              placeholder="Vui lòng điền tên khóa học"
-              required
-            />
+            <input type="text" placeholder="Vui lòng điền tên khóa học" />
+            <label>
+              <b>Mô Tả</b>
+            </label>
             <textarea rows={4} defaultValue={""} />
-            <input type="text" placeholder="Vui lòng điền mô tả" required />
+
             <label>
               <b>Lượt Xem</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền lượt xem" required />
+            <input type="text" placeholder="Vui lòng điền lượt xem" />
             <label>
               <b>Đánh Giá</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền đánh giá" required />
+            <select>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
             <label>
               <b>Hình Ảnh</b>
             </label>
-            <input type="text" placeholder="Vui lòng chọn hình ảnh" required />
+            <input type="file" placeholder="Vui lòng chọn hình ảnh" />
+
             <label>
               <b>Mã Nhóm</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền mã nhóm" required />
+            <select>
+              <option value="GP05">GP05</option>
+              <option value="GP04">GP04</option>
+              <option value="GP03">GP03</option>
+              <option value="GP02">GP02</option>
+              <option value="GP01">GP01</option>
+            </select>
+
             <label>
               <b>Ngày Tạo</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền ngày tạo" required />
+            <DatePicker
+              dateFormat="dd/MM/yyy"
+              selected={startDate}
+              onChange={selectDateHandler}
+              maxDate={today}
+              todayButton={"Today"}
+              className={stylesAddModal["dayPicker"]}
+            />
+
             <label>
               <b>Mã Danh Mục Khóa Học</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền mã nhóm" required />
+            <input type="text" placeholder="Vui lòng điền mã nhóm" />
             <label>
               <b>Tài Khoản Người Tạo</b>
             </label>
             <input
               type="text"
               placeholder="Vui lòng điền tài khoản người tạo"
-              required
             />
             <div className={stylesAddModal["gr-btn"]}>
               <button onClick={() => setShowAddCourseModal(false)}>
@@ -269,31 +295,19 @@ const OverView = (props: Props) => {
             <label>
               <b>Tài Khoản</b>
             </label>
-            <input
-              type="text"
-              placeholder="Vui lòng điền mã khóa học"
-              required
-            />
+            <input type="text" placeholder="Vui lòng điền mã khóa học" />
             <label>
               <b>Mật Khẩu</b>
             </label>
-            <input
-              type="password"
-              placeholder="Vui lòng điền mật khẩu"
-              required
-            />
+            <input type="password" placeholder="Vui lòng điền mật khẩu" />
             <label>
               <b>Họ Tên</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền họ tên " required />
+            <input type="text" placeholder="Vui lòng điền họ tên " />
             <label>
               <b>Số Điện Thoại</b>
             </label>
-            <input
-              type="text"
-              placeholder="Vui lòng điền số điện thoại"
-              required
-            />
+            <input type="text" placeholder="Vui lòng điền số điện thoại" />
             <label>
               <b>Loại Tài Khoản</b>
             </label>
@@ -308,11 +322,10 @@ const OverView = (props: Props) => {
               <option value="GP01">GP01</option>
               <option value="GP02">GP02</option>
             </select>
-            <br />
             <label>
               <b>Email</b>
             </label>
-            <input type="email" placeholder="Vui lòng điền email" required />
+            <input type="email" placeholder="Vui lòng điền email" />
 
             <div className={stylesAddModal["gr-btn"]}>
               <button onClick={() => setShowAddGVModal(false)}>Thoát</button>
@@ -703,8 +716,7 @@ const OverView = (props: Props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                   listAccountsGV.map((Account) => {
+                  {listAccountsGV.map((Account) => {
                     return (
                       <tr key={Account.taiKhoan}>
                         <td>{Account.hoTen}</td>
@@ -740,9 +752,7 @@ const OverView = (props: Props) => {
                         </td>
                       </tr>
                     );
-                  })
-                  
-                  }
+                  })}
                 </tbody>
               </table>
             </div>

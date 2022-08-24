@@ -4,6 +4,7 @@ import HeaderHome from '../Components/HeaderHome/HeaderHome'
 import '_Playground/SCSS/index.scss'
 
 
+
 type Props = {}
 
 function HomeTemplate({}: Props) {

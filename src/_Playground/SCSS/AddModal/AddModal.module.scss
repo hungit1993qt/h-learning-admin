@@ -15,10 +15,13 @@
     background-color: #fefefe;
     margin: 5% auto 15% auto;
     border: 1px solid #888;
-    width: 60%;
+    width: 45%;
     min-width: 370px;
     .container {
       padding: 16px;
+      .gr-one{
+        display: flex;
+      }
       input {
         width: 100%;
         padding: 6px 20px;
@@ -27,6 +30,14 @@
         border: 1px solid #ccc;
         box-sizing: border-box;
       }
+      input[type=file]{
+        width: 100%;
+        margin: 8px 0px;
+      }
+      
+      // input.dayPicker{
+      //   width: 20%;
+      // }
       textarea {
         width: 100%;
         padding: 6px 20px;
@@ -36,11 +47,12 @@
         box-sizing: border-box;
       }
       select{
-        padding: 6px 20px;
-        margin: 8px 10px;
+        padding: 6px 0px;
+        margin: 8px 0px;
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
+        width: 100%;
       }
 
       /* Set a style for all buttons */

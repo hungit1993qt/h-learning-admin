@@ -386,8 +386,9 @@ const OverView = () => {
               <CKEditor
                 editor={ClassicEditor}
                 // config={config}
-                data="<p>Hello from CKEditor 5!</p>"
-                onInit={(editor:any) => {
+                data=""
+                
+                onReady={(editor:any) => {
                   // You can store the "editor" and use when it is needed.
                   console.log(
                     "Editor is ready to use!",

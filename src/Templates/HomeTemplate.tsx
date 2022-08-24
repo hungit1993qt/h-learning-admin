@@ -8,6 +8,7 @@ import '_Playground/SCSS/index.scss'
 type Props = {}
 
 function HomeTemplate({}: Props) {
+  
   return (
     <div>
         <HeaderHome />

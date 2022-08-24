@@ -60,7 +60,6 @@ const OverView = (props: Props) => {
           dispatch(getListCourse(tenKhoaHoc));
         }
       } else {
-        
         dispatch(getListCourse(` `));
       }
     })();
@@ -111,8 +110,18 @@ const OverView = (props: Props) => {
           setValueSearchListAccountGV(tenTaikhoan);
         }
       } else {
-       
-        setValueSearchListAccountGV("");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          showConfirmButton: true,
+          showCancelButton: true,
+          title: "Bạn quên điền, Không dữ liệu",
+          text: "Nhấn ok để hiễn thị all dữ liệu.",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setValueSearchListAccountGV("");
+          }
+        });
       }
     })();
   };
@@ -135,15 +144,24 @@ const OverView = (props: Props) => {
           });
           setValueSearchListAccountHV("");
         } else {
-          
           setValueSearchListAccountHV(tenTaikhoan);
         }
       } else {
-       
         setValueSearchListAccountHV("");
       }
     })();
   };
+  const NotDataSearch = ()=>{
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      showConfirmButton: false,
+     
+      title: "Không dữ liệu",
+      text: "Thông tin bạn tìm kiếm không có trong hệ thống.",
+      timer:2000,
+    })
+  }
   const ListCoursesGV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "GV");
   const ListCoursesHV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "HV");
   const resultSearchAccountGV = ListCoursesGV.filter((account) =>
@@ -152,11 +170,12 @@ const OverView = (props: Props) => {
   const resultSearchAccountHV = ListCoursesHV.filter((account) =>
     account.hoTen.toLocaleLowerCase().includes(valueSearchListAccountHV)
   );
-
+  // const listAccountsGV = resultSearchAccountGV;
+  // const listAccountsHV = resultSearchAccountHV;
   const listAccountsGV =
-    resultSearchAccountGV.length > 0 ? resultSearchAccountGV : ListCoursesGV;
+    resultSearchAccountGV.length > 0 ? resultSearchAccountGV : [];
   const listAccountsHV =
-    resultSearchAccountHV.length > 0 ? resultSearchAccountHV : ListCoursesHV;
+    resultSearchAccountHV.length > 0 ? resultSearchAccountHV : [];
   const [stylesAddCourseModal, setShowAddCourseModal] = useState(false);
   const [stylesAddGVModal, setShowAddGVModal] = useState(false);
   return (
@@ -288,16 +307,15 @@ const OverView = (props: Props) => {
             <select>
               <option value="GP01">GP01</option>
               <option value="GP02">GP02</option>
-            </select><br/>
+            </select>
+            <br />
             <label>
               <b>Email</b>
             </label>
             <input type="email" placeholder="Vui lòng điền email" required />
-            
+
             <div className={stylesAddModal["gr-btn"]}>
-              <button onClick={() => setShowAddGVModal(false)}>
-                Thoát
-              </button>
+              <button onClick={() => setShowAddGVModal(false)}>Thoát</button>
               <button>Xóa</button>
               <button>Thêm</button>
             </div>
@@ -685,7 +703,8 @@ const OverView = (props: Props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listAccountsGV.map((Account) => {
+                  {
+                   listAccountsGV.map((Account) => {
                     return (
                       <tr key={Account.taiKhoan}>
                         <td>{Account.hoTen}</td>
@@ -721,7 +740,9 @@ const OverView = (props: Props) => {
                         </td>
                       </tr>
                     );
-                  })}
+                  })
+                  
+                  }
                 </tbody>
               </table>
             </div>
@@ -729,7 +750,10 @@ const OverView = (props: Props) => {
           <div className={styles["tableListUser"]}>
             <div className={styles["title"]}>
               <h2 className={styles["section--title"]}>Danh Sách Học Viên</h2>
-              <button  onClick={() => setShowAddGVModal(true)} className={styles["add"]}>
+              <button
+                onClick={() => setShowAddGVModal(true)}
+                className={styles["add"]}
+              >
                 <i className="fa fa-plus"></i>
                 Thêm
               </button>

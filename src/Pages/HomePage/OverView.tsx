@@ -263,13 +263,17 @@ const OverView = (props: Props) => {
             <label>
               <b>Mã Danh Mục Khóa Học</b>
             </label>
-            <input type="text" placeholder="Vui lòng điền mã nhóm" />
+            <select>
+              <option value="FullStack">FullStack</option>
+              
+            </select>
             <label>
               <b>Tài Khoản Người Tạo</b>
             </label>
             <input
               type="text"
               placeholder="Vui lòng điền tài khoản người tạo"
+              disabled
             />
             <div className={stylesAddModal["gr-btn"]}>
               <button onClick={() => setShowAddCourseModal(false)}>

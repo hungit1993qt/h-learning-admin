@@ -7,13 +7,29 @@ import { getListCourse } from "Slices/Course";
 import { getListAccount, logOut } from "Slices/auth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { AddValueCourse } from "Interface/AddValueCourse";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
 //npm install react-datepicker --save
 //npm install --save @types/react-datepicker
 // import { useDebounce } from "usehooks-ts";
 import Swal from "sweetalert2";
-type Props = {};
+const schema = object({
+  maKhoaHoc: string().required("Mã khóa học không được để trống"),
+  tenKhoaHoc: string().required("Tên khóa học không được để trống"),
+  biDanh: string().required("Bí danh không được để trống"),
+  moTa: string().required("Mô tả không được để trống"),
+  luotXem: string().required("Lượt xem không được để trống"),
+  danhGia: string().required("Đánh giá không được để trống"),
+  ngayTao: string().required("Ngày tạo không được để trống"),
+  maDanhMucKhoaHoc: string().required(
+    "Mã danh mục khóa học không được để trống"
+  ),
+  nguoiTao: string().required("Người tạo không được để trống"),
+});
 
-const OverView = (props: Props) => {
+const OverView = () => {
   // const [valueSearchListCourse, setValueSearchListCourse] =
   //   useState<string>("");
   const [valueSearchListAccountGV, setValueSearchListAccountGV] =
@@ -188,6 +204,22 @@ const OverView = (props: Props) => {
   const selectDateHandler = (day: any) => {
     setDate(day);
   };
+  const getValueLocalstorage = JSON.parse(
+    localStorage.getItem("adminLogin") as string
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddValueCourse>({
+    mode: "onTouched",
+    // cấu hình validation bằng yup schema
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (values: AddValueCourse) => {
+    console.log(values);
+  };
   return (
     <>
       <div
@@ -198,88 +230,142 @@ const OverView = (props: Props) => {
         }
       >
         <form
+          onSubmit={handleSubmit(onSubmit)}
           className={`${stylesAddModal["modal-content"]} ${stylesAddModal.animate}`}
         >
           <div className={stylesAddModal["container"]}>
-            <label>
-              <b>Mã Khóa Học</b>
-            </label>
-            <input type="text" placeholder="Vui lòng điền mã khóa học" />
-            <label>
-              <b>Bí Danh</b>
-            </label>
-            <input type="text" placeholder="Vui lòng điền bí danh" />
-            <label>
-              <b>Tên Khóa Học</b>
-            </label>
-            <input type="text" placeholder="Vui lòng điền tên khóa học" />
-            <label>
-              <b>Mô Tả</b>
-            </label>
-            <textarea rows={4} defaultValue={""} />
+            <div>
+              <label>
+                <b>Mã Khóa Học</b>
+              </label>
+              <input
+                type="text"
+                placeholder="Vui lòng điền mã khóa học"
+                {...register("maKhoaHoc")}
+              />
+              {errors.maKhoaHoc && <span>{errors.maKhoaHoc?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Bí Danh</b>
+              </label>
+              <input
+                type="text"
+                placeholder="Vui lòng điền bí danh"
+                {...register("biDanh")}
+              />
+              {errors.biDanh && <span>{errors.biDanh?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Tên Khóa Học</b>
+              </label>
+              <input
+                type="text"
+                placeholder="Vui lòng điền tên khóa học"
+                {...register("tenKhoaHoc")}
+              />
+              {errors.tenKhoaHoc && <span>{errors.tenKhoaHoc?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Mô Tả</b>
+              </label>
+              <textarea rows={4} defaultValue={""} {...register("moTa")} />
+              {errors.moTa && <span>{errors.moTa?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Lượt Xem</b>
+              </label>
+              <input
+                type="number"
+                placeholder="Vui lòng điền lượt xem"
+                {...register("luotXem")}
+              />
+              {errors.luotXem && <span>{errors.luotXem?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Đánh Giá</b>
+              </label>
+              <select {...register("danhGia")}>
+                <option value={5}>5</option>
+                <option value={4}>4</option>
+                <option value={3}>3</option>
+                <option value={2}>2</option>
+                <option value={1}>1</option>
+              </select>
+              {errors.danhGia && <span>{errors.danhGia?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Hình Ảnh</b>
+              </label>
+              <input
+                type="file"
+                placeholder="Vui lòng chọn hình ảnh"
+                {...register("hinhAnh")}
+              />
+            </div>
+            {errors.hinhAnh && <span>{errors.hinhAnh?.message}</span>}
+            <div>
+              <label>
+                <b>Mã Nhóm</b>
+              </label>
+              <select {...register("maNhom")}>
+                <option value="GP05">GP05</option>
+                <option value="GP04">GP04</option>
+                <option value="GP03">GP03</option>
+                <option value="GP02">GP02</option>
+                <option value="GP01">GP01</option>
+              </select>
+              {errors.maNhom && <span>{errors.maNhom?.message}</span>}
+            </div>
+            <div>
+              <label>
+                <b>Ngày Tạo</b>
+              </label>
+              <DatePicker
+                dateFormat="dd/MM/yyy"
+                selected={startDate}
+                onChange={selectDateHandler}
+                maxDate={today}
+                todayButton={"Today"}
+                className={stylesAddModal["dayPicker"]}
+              />
+            </div>
+            <div>
+              <label>
+                <b>Mã Danh Mục Khóa Học</b>
+              </label>
+              <select {...register("maDanhMucKhoaHoc")}>
+                <option value="FullStack">FullStack</option>
+              </select>
+              {errors.maDanhMucKhoaHoc && (
+                <span>{errors.maDanhMucKhoaHoc?.message}</span>
+              )}
+            </div>
+            <div>
+              <label>
+                <b>Tài Khoản Người Tạo</b>
+              </label>
+              <input
+                type="text"
+                value={getValueLocalstorage.taiKhoan}
+                {...register("taiKhoanNguoiTao")}
+                disabled
+              />
+              {errors.taiKhoanNguoiTao && (
+                <span>{errors.taiKhoanNguoiTao?.message}</span>
+              )}
+            </div>
 
-            <label>
-              <b>Lượt Xem</b>
-            </label>
-            <input type="text" placeholder="Vui lòng điền lượt xem" />
-            <label>
-              <b>Đánh Giá</b>
-            </label>
-            <select>
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1</option>
-            </select>
-            <label>
-              <b>Hình Ảnh</b>
-            </label>
-            <input type="file" placeholder="Vui lòng chọn hình ảnh" />
-
-            <label>
-              <b>Mã Nhóm</b>
-            </label>
-            <select>
-              <option value="GP05">GP05</option>
-              <option value="GP04">GP04</option>
-              <option value="GP03">GP03</option>
-              <option value="GP02">GP02</option>
-              <option value="GP01">GP01</option>
-            </select>
-
-            <label>
-              <b>Ngày Tạo</b>
-            </label>
-            <DatePicker
-              dateFormat="dd/MM/yyy"
-              selected={startDate}
-              onChange={selectDateHandler}
-              maxDate={today}
-              todayButton={"Today"}
-              className={stylesAddModal["dayPicker"]}
-            />
-
-            <label>
-              <b>Mã Danh Mục Khóa Học</b>
-            </label>
-            <select>
-              <option value="FullStack">FullStack</option>
-              
-            </select>
-            <label>
-              <b>Tài Khoản Người Tạo</b>
-            </label>
-            <input
-              type="text"
-              placeholder="Vui lòng điền tài khoản người tạo"
-              disabled
-            />
             <div className={stylesAddModal["gr-btn"]}>
               <button onClick={() => setShowAddCourseModal(false)}>
                 Thoát
               </button>
-              <button type="submit">Xóa</button>
+              <button>Xóa</button>
               <button>Thêm</button>
             </div>
           </div>

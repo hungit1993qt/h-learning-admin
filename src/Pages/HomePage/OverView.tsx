@@ -35,6 +35,11 @@ const schema = object({
     .integer("Không đúng định dạng số"),
 });
 Moment.locale("en");
+const config = {
+  toolbar: {
+    shouldNotGroupWhenFull: true,
+  },
+};
 
 const OverView = () => {
   // const [valueSearchListCourse, setValueSearchListCourse] =
@@ -385,10 +390,9 @@ const OverView = () => {
               {/* {errors.moTa && <span>{errors.moTa?.message}</span>} */}
               <CKEditor
                 editor={ClassicEditor}
-                // config={config}
+                config={config}
                 data=""
-                
-                onReady={(editor:any) => {
+                onReady={(editor: any) => {
                   // You can store the "editor" and use when it is needed.
                   console.log(
                     "Editor is ready to use!",
@@ -396,18 +400,17 @@ const OverView = () => {
                     Array.from(editor.ui.componentFactory.names())
                   );
                 }}
-                onChange={(event:any, editor:any) => {
+                onChange={(event: any, editor: any) => {
                   const data = editor.getData();
                   console.log({ event, editor, data });
                 }}
-                onBlur={(event:any, editor:any) => {
+                onBlur={(event: any, editor: any) => {
                   console.log("Blur.", editor);
                 }}
-                onFocus={(event:any, editor:any) => {
+                onFocus={(event: any, editor: any) => {
                   console.log("Focus.", editor);
                 }}
               />
-             
             </div>
 
             <div className={stylesAddModal["gr-btn"]}>

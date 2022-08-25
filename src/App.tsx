@@ -36,7 +36,7 @@ function App() {
                 path="register"
                 element={
                   <ProtectedRoute>
-                    <Register />
+                    <AddMovie />
                   </ProtectedRoute>
                 }
               />

@@ -29,6 +29,7 @@ const AddMovie = () => {
     // } catch (error) {
     //   console.log(error);
     // }
+    console.log(values)
   };
 
   return (

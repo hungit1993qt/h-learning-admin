@@ -23,7 +23,7 @@ const schema = object({
   maKhoaHoc: string().required("Mã khóa học không được để trống"),
   tenKhoaHoc: string().required("Tên khóa học không được để trống"),
   biDanh: string().required("Bí danh không được để trống"),
-  moTa: string().required("Mô tả không được để trống"),
+  //moTa: string().required("Mô tả không được để trống"),
   luotXem: number()
     .required("Lượt xem không được để trống")
 
@@ -233,13 +233,21 @@ const OverView = () => {
     // cấu hình validation bằng yup schema
     resolver: yupResolver(schema),
   });
+  const [dataMoTaCKeditor, setDataMoTaCKeditor] = useState();
 
   const onSubmit = (values: AddValueCourse) => {
     values.ngayTao = date;
+    values.moTa = dataMoTaCKeditor;
 
     console.log(values);
     handleResetForm();
   };
+  const onChangeCKeditor = (event: any, editor: any) => {
+    const data = editor.getData();
+    setDataMoTaCKeditor(data);
+    console.log(data)
+  };
+ 
   const handleResetForm = () => {
     resetField("maKhoaHoc");
     resetField("tenKhoaHoc");
@@ -345,6 +353,7 @@ const OverView = () => {
                 onChange={(day: any) => {
                   setDate(day);
                 }}
+                
                 maxDate={today}
                 todayButton={"Today"}
                 className={stylesAddModal["dayPicker"]}
@@ -394,16 +403,16 @@ const OverView = () => {
                 data=""
                 onReady={(editor: any) => {
                   // You can store the "editor" and use when it is needed.
-                  console.log(
-                    "Editor is ready to use!",
-                    editor,
-                    Array.from(editor.ui.componentFactory.names())
-                  );
+                  // console.log(
+                  //   "Editor is ready to use!",
+                  //   editor,
+                  //   Array.from(editor.ui.componentFactory.names())
+                  // );
                 }}
-                onChange={(event: any, editor: any) => {
-                  const data = editor.getData();
-                  console.log({ event, editor, data });
-                }}
+                {...register("moTa")}
+                onChange={(event: any, editor: any) =>
+                  onChangeCKeditor(event, editor)
+                }
                 onBlur={(event: any, editor: any) => {
                   console.log("Blur.", editor);
                 }}

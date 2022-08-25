@@ -2,7 +2,7 @@ export interface AddValueCourse {
   maKhoaHoc: string;
   biDanh: string;
   tenKhoaHoc: string;
-  moTa: string;
+  moTa: any;
   luotXem: number;
   danhGia: number;
   hinhAnh: string;

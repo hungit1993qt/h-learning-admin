@@ -164,7 +164,7 @@ a {
   border-radius: 20px;
   min-width: 230px;
   height: auto;
-  transition: 0.2s;
+  transition: .3s;
 }
 
 .card:hover {
@@ -190,12 +190,12 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 5px;
 }
 
 .card--stats span {
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
 }
 
 .card--icon {
@@ -215,21 +215,19 @@ a {
 }
 
 .card-1 {
-  background-color: rgba(80, 115, 251, 0.1);
+  background-color: rgba(80, 115, 251, .1);
 }
-h5 {
-  font-size: 0.7rem;
-}
+
 .card-1 .card--title {
   color: rgba(80, 115, 251, 1);
 }
 
 .card-1 .card--icon--lg {
-  color: rgba(80, 115, 251, 0.4);
+  color: rgba(80, 115, 251, .4);
 }
 
 .card-2 {
-  background-color: rgba(241, 210, 67, 0.1);
+  background-color: rgba(241, 210, 67, .1);
 }
 
 .card-2 .card--title {
@@ -237,11 +235,11 @@ h5 {
 }
 
 .card-2 .card--icon--lg {
-  color: rgba(241, 210, 67, 0.4);
+  color: rgba(241, 210, 67, .4);
 }
 
 .card-3 {
-  background-color: rgba(112, 215, 165, 0.1);
+  background-color: rgba(112, 215, 165, .1);
 }
 
 .card-3 .card--title {
@@ -249,11 +247,11 @@ h5 {
 }
 
 .card-3 .card--icon--lg {
-  color: rgba(112, 215, 165, 0.4);
+  color: rgba(112, 215, 165, .4);
 }
 
 .card-4 {
-  background-color: rgba(227, 106, 200, 0.1);
+  background-color: rgba(227, 106, 200, .1);
 }
 
 .card-4 .card--title {
@@ -261,7 +259,7 @@ h5 {
 }
 
 .card-4 .card--icon--lg {
-  color: rgba(227, 106, 200, 0.4);
+  color: rgba(227, 106, 200, .4);
 }
 
 /* doctors */
@@ -373,10 +371,10 @@ tr {
   border-bottom: 1px solid #f1f1f1;
 }
 td {
-  font-size: 0.7rem;
+  font-size: 1rem;
 }
 th {
-  font-size: 0.7rem;
+  font-size: 1rem;
   position: sticky;
   top: 0px;
   background-color: #04aa6d;
@@ -393,7 +391,7 @@ th {
 
 td,
 th {
-  padding-block: 3px;
+  padding-block: 10px;
 }
 
 .edit {

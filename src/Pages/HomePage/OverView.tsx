@@ -245,9 +245,9 @@ const OverView = () => {
   const onChangeCKeditor = (event: any, editor: any) => {
     const data = editor.getData();
     setDataMoTaCKeditor(data);
-    console.log(data)
+    console.log(data);
   };
- 
+
   const handleResetForm = () => {
     resetField("maKhoaHoc");
     resetField("tenKhoaHoc");
@@ -353,7 +353,6 @@ const OverView = () => {
                 onChange={(day: any) => {
                   setDate(day);
                 }}
-                
                 maxDate={today}
                 todayButton={"Today"}
                 className={stylesAddModal["dayPicker"]}
@@ -968,7 +967,6 @@ const OverView = () => {
                         </td>
 
                         <td>
-                          {" "}
                           <i
                             onClick={() => Swal.fire(`Email: ${Account.email}`)}
                             style={{ cursor: "pointer" }}
@@ -1022,14 +1020,14 @@ const OverView = () => {
                       Click tìm kiếm ...
                     </th>
                     <th>Mã Khóa Học</th>
-                    <th>Bí Danh</th>
+                    {/* <th>Bí Danh</th> */}
 
                     <th>Mô Tả</th>
-                    <th>Lượt Xem</th>
+                    {/* <th>Lượt Xem</th> */}
                     <th>Ảnh</th>
-                    <th>Ngày Tạo</th>
-                    <th>Danh Mục </th>
-                    <th>Người Tạo</th>
+                    {/* <th>Ngày Tạo</th> */}
+                    {/* <th>Danh Mục </th> */}
+                    {/* <th>Người Tạo</th> */}
                     <th></th>
                   </tr>
                 </thead>
@@ -1047,7 +1045,7 @@ const OverView = () => {
                             className="fa fa-eye-slash"
                           ></i>
                         </td>
-                        <td>
+                        {/* <td>
                           <i
                             onClick={() =>
                               Swal.fire(`Bí danh: ${Course.biDanh}`)
@@ -1055,7 +1053,7 @@ const OverView = () => {
                             style={{ cursor: "pointer" }}
                             className="fa fa-eye-slash"
                           ></i>
-                        </td>
+                        </td> */}
                         <td>
                           <i
                             onClick={() => Swal.fire(`Mô tả: ${Course.moTa}`)}
@@ -1063,13 +1061,29 @@ const OverView = () => {
                             className="fa fa-eye-slash"
                           ></i>
                         </td>
-                        <td className={styles["pending"]}>{Course.luotXem}</td>
+                        {/* <td className={styles["pending"]}>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mô tả: ${Course.luotXem}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td> */}
 
                         <td>
                           <i
                             onClick={() =>
                               Swal.fire({
                                 title: `${Course.tenKhoaHoc}`,
+                                html: `
+                                  Bí danh: ${Course.biDanh}.</br>
+                                  Lượt xem: ${Course.luotXem}</br>
+                                  Ngày tạo: ${Course.ngayTao}</br>
+                                  Danh mục khóa học: ${Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</br>
+                                  Người tạo: ${Course.nguoiTao.hoTen}</br>
+                                `,
+
                                 imageUrl: `${Course.hinhAnh}`,
                                 imageWidth: 400,
                                 imageHeight: 200,
@@ -1079,8 +1093,27 @@ const OverView = () => {
                             className="fa fa-image"
                           ></i>
                         </td>
-                        <td>{Course.ngayTao}</td>
-                        <td>{Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}</td>
+                        {/* <td>
+                          <i
+                            onClick={() =>
+                              Swal.fire(`Mô tả: ${Course.ngayTao}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td> */}
+                        {/* <td>
+                          {" "}
+                          <i
+                            onClick={() =>
+                              Swal.fire(
+                                `Mô tả: ${Course.danhMucKhoaHoc.tenDanhMucKhoaHoc}`
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-eye-slash"
+                          ></i>
+                        </td>
                         <td>
                           <i
                             onClick={() =>
@@ -1089,7 +1122,7 @@ const OverView = () => {
                             style={{ cursor: "pointer" }}
                             className="fa fa-eye-slash"
                           ></i>
-                        </td>
+                        </td> */}
                         <td>
                           <span>
                             <i className={`fa fa-edit ${styles.edit}`}></i>

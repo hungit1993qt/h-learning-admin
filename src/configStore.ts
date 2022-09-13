@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import listCours from "./Slices/Course";
-import actionMenu from "./Slices/Course";
+import listCours from "./Slices/showCourse";
+import actionMenu from "./Slices/showCourse";
+import addValueCourse from "./Slices/addCourse";
 import listAccount from "./Slices/auth";
 import auth from "./Slices/auth";
 
@@ -9,7 +10,8 @@ const store = configureStore({
     auth,
     listCours,
     actionMenu,
-    listAccount
+    listAccount,
+    addValueCourse,
   },
 });
 

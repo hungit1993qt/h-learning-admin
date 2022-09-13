@@ -91,7 +91,7 @@ const Login = () => {
                   message: "Mật khẩu không được để trống",
                 },
                 pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
                   message:
                     "Mật khẩu ít nhất một chữ cái, một số và ít nhất 8 kí tự",
                 },

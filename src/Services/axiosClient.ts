@@ -38,7 +38,7 @@ axiosClient.interceptors.response.use(
   (error: AxiosError<{ content: string }>) => {
     // request thất bại
     // thay đổi format của error trước khi trả ra cho nơi gọi request
-    return error.response;
+    return error.response ;
   }
 );
 

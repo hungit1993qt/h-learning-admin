@@ -3,7 +3,9 @@ import stylesAddModal from "_Playground/SCSS/AddModal/AddModal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
 import { useEffect, useState } from "react";
-import { getListCourse } from "Slices/Course";
+import { getListCourse } from "Slices/showCourse";
+import { addCourse } from "Slices/addCourse";
+import { deleteCourse } from "Slices/deleteCourse";
 import { getListAccount, logOut } from "Slices/auth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,11 +14,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Moment from "moment";
-
+import Swal from "sweetalert2";
+import { ListCourse } from "Interface/ListCourse";
 //npm install react-datepicker --save
 //npm install --save @types/react-datepicker
 // import { useDebounce } from "usehooks-ts";
-import Swal from "sweetalert2";
+
 const schema = yup.object({
   maKhoaHoc: yup.string().required("Mã khóa học không được để trống"),
   tenKhoaHoc: yup.string().required("Tên khóa học không được để trống"),
@@ -184,7 +187,7 @@ const OverView = () => {
     register,
     handleSubmit,
     resetField,
-    setError,
+    setValue,
     formState: { errors },
   } = useForm<AddValueCourse>({
     defaultValues: {
@@ -198,15 +201,20 @@ const OverView = () => {
 
   const onSubmit = (values: AddValueCourse) => {
     values.ngayTao = date;
-    const data = {
+    const data: any = {
       ...values,
       hinhAnh: values.hinhAnh[0],
       ngayTao: date,
     };
+
+    let formData = new FormData();
+    for (let key in data) {
+      formData.append(key, data[key]);
+    }
     try {
-      console.log(data);
+      dispatch(addCourse(formData));
       handleResetForm();
-      setShowAddCourseModal(false)
+      setShowAddCourseModal(false);
     } catch (error) {
       console.log(error);
     }
@@ -220,6 +228,39 @@ const OverView = () => {
     resetField("moTa");
     resetField("hinhAnh");
   };
+  const handleDeleteCourse = (maKhoaHoc: string) => {
+    Swal.fire({
+      title: "Chắc chắn muốn xóa khóa học này?",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: `thoát`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        dispatch(deleteCourse(maKhoaHoc));
+      }
+    });
+  };
+  const [danhGia, setDanhGia] = useState(0);
+  const [danhMuc, setdanhMuc] = useState("");
+  const [showBtnUpdateCourse,setShowBtnUpdateCourse] = useState(false)
+  const handleEditCourse = (Cours: any) => {
+    console.log(Cours);
+    setShowAddCourseModal(true);
+    setValue("maKhoaHoc", Cours.maKhoaHoc);
+    setValue("tenKhoaHoc", Cours.tenKhoaHoc);
+    setValue("biDanh", Cours.biDanh);
+    setValue("luotXem", Cours.luotXem);
+    setDanhGia(Cours.danhGia);
+    setValue("hinhAnh", Cours.hinhAnh);
+    setValue("maNhom", Cours.maNhom);
+    setValue("moTa", Cours.moTa);
+    setdanhMuc(Cours.danhMucKhoaHoc.maDanhMucKhoahoc);
+    setValue("taiKhoanNguoiTao", Cours.taiKhoanNguoiTao);
+  };
+  const handleditCourseSubmit = ()=>{
+    console.log(values)
+  }
 
   return (
     <>
@@ -296,7 +337,7 @@ const OverView = () => {
               <label>
                 <b>Đánh Giá</b>
               </label>
-              <select {...register("danhGia")}>
+              <select value={danhGia} {...register("danhGia")}>
                 <option value={5}>5</option>
                 <option value={4}>4</option>
                 <option value={3}>3</option>
@@ -341,8 +382,13 @@ const OverView = () => {
               <label>
                 <b>Mã Danh Mục Khóa Học</b>
               </label>
-              <select {...register("maDanhMucKhoaHoc")}>
-                <option value="FullStack">FullStack</option>
+              <select value={danhMuc} {...register("maDanhMucKhoaHoc")}>
+                <option value="BackEnd">Lập trình Backend</option>
+                <option value="Design">Thiết kế Web</option>
+                <option value="DiDong">Lập trình di động</option>
+                <option value="FrontEnd">Lập trình Front end</option>
+                <option value="FullStack">Lập trình Full Stack</option>
+                <option value="TuDuy">Tư duy lập trình</option>
               </select>
               {errors.maDanhMucKhoaHoc && (
                 <span>{errors.maDanhMucKhoaHoc?.message}</span>
@@ -397,6 +443,7 @@ const OverView = () => {
                 Xóa
               </button>
               <button>Thêm</button>
+              <button type="button" onClick={()=>handleditCourseSubmit()}>Sửa</button>
             </div>
           </div>
         </form>
@@ -1079,8 +1126,16 @@ const OverView = () => {
                         </td> */}
                         <td>
                           <span>
-                            <i className={`fa fa-edit ${styles.edit}`}></i>
-                            <i className={`fa fa-trash ${styles.delete}`}></i>
+                            <i
+                              onClick={() => handleEditCourse(Course)}
+                              className={`fa fa-edit ${styles.edit}`}
+                            ></i>
+                            <i
+                              onClick={() =>
+                                handleDeleteCourse(Course.maKhoaHoc)
+                              }
+                              className={`fa fa-trash ${styles.delete}`}
+                            ></i>
                           </span>
                         </td>
                       </tr>

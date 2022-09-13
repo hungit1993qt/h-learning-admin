@@ -15,7 +15,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Moment from "moment";
 import Swal from "sweetalert2";
-import { ListCourse } from "Interface/ListCourse";
 //npm install react-datepicker --save
 //npm install --save @types/react-datepicker
 // import { useDebounce } from "usehooks-ts";
@@ -198,6 +197,7 @@ const OverView = () => {
     // cấu hình validation bằng yup schema
     resolver: yupResolver(schema),
   });
+  const [isUpdateCourse, setisUpdateCourse] = useState(false);
 
   const onSubmit = (values: AddValueCourse) => {
     values.ngayTao = date;
@@ -211,12 +211,16 @@ const OverView = () => {
     for (let key in data) {
       formData.append(key, data[key]);
     }
-    try {
-      dispatch(addCourse(formData));
-      handleResetForm();
-      setShowAddCourseModal(false);
-    } catch (error) {
-      console.log(error);
+    if (isUpdateCourse) {
+      console.log("edit")
+    } else {
+      try {
+        dispatch(addCourse(formData));
+        handleResetForm();
+        setShowAddCourseModal(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -243,9 +247,9 @@ const OverView = () => {
   };
   const [danhGia, setDanhGia] = useState(0);
   const [danhMuc, setdanhMuc] = useState("");
-  const [showBtnUpdateCourse,setShowBtnUpdateCourse] = useState(false)
+
+  
   const handleEditCourse = (Cours: any) => {
-    console.log(Cours);
     setShowAddCourseModal(true);
     setValue("maKhoaHoc", Cours.maKhoaHoc);
     setValue("tenKhoaHoc", Cours.tenKhoaHoc);
@@ -258,9 +262,6 @@ const OverView = () => {
     setdanhMuc(Cours.danhMucKhoaHoc.maDanhMucKhoahoc);
     setValue("taiKhoanNguoiTao", Cours.taiKhoanNguoiTao);
   };
-  const handleditCourseSubmit = ()=>{
-    console.log(values)
-  }
 
   return (
     <>
@@ -443,7 +444,9 @@ const OverView = () => {
                 Xóa
               </button>
               <button>Thêm</button>
-              <button type="button" onClick={()=>handleditCourseSubmit()}>Sửa</button>
+              <button type="button" onClick={()=>setisUpdateCourse(true)}>
+                Sửa
+              </button>
             </div>
           </div>
         </form>

@@ -10,58 +10,31 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AddValueCourse } from "Interface/AddValueCourse";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string, number } from "yup";
+import * as yup from "yup";
 import Moment from "moment";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //npm install react-datepicker --save
 //npm install --save @types/react-datepicker
 // import { useDebounce } from "usehooks-ts";
 import Swal from "sweetalert2";
-const schema = object({
-  maKhoaHoc: string().required("Mã khóa học không được để trống"),
-  tenKhoaHoc: string().required("Tên khóa học không được để trống"),
-  biDanh: string().required("Bí danh không được để trống"),
-  //moTa: string().required("Mô tả không được để trống"),
-  luotXem: number()
-    .required("Lượt xem không được để trống")
-
-    .integer("Không đúng định dạng số"),
-  ngayTao: string().required("Lượt xem không được để trống"),
-  danhGia: number()
-    .required("Đánh giá không được để trống")
-
-    .integer("Không đúng định dạng số"),
+const schema = yup.object({
+  maKhoaHoc: yup.string().required("Mã khóa học không được để trống"),
+  tenKhoaHoc: yup.string().required("Tên khóa học không được để trống"),
+  biDanh: yup.string().required("Bí danh không được để trống"),
+  moTa: yup.string().required("Mô tả không được để trống"),
+  luotXem: yup.string().required("Lượt xem không được để trống"),
+  ngayTao: yup.string().required("Lượt xem không được để trống"),
+  danhGia: yup.number().required("Đánh giá không được để trống"),
+  hinhAnh: yup.mixed().test("required", "Vui lòng chọn ảnh", (value) => {
+    return value && value.length;
+  }),
 });
 Moment.locale("en");
-const config = {
-  toolbar: {
-    shouldNotGroupWhenFull: true,
-  },
-};
-
 const OverView = () => {
-  // const [valueSearchListCourse, setValueSearchListCourse] =
-  //   useState<string>("");
   const [valueSearchListAccountGV, setValueSearchListAccountGV] =
     useState<string>(" ");
   const [valueSearchListAccountHV, setValueSearchListAccountHV] =
     useState<string>(" ");
-  // const debouncedValueListCourse = useDebounce<string>(
-  //   valueSearchListCourse,
-  //   500
-  // );
-  // const debouncedValueListAccount = useDebounce<string>(
-  //   valueSearchListAccount,
-  //   500
-  // );
-  // const handlSearchListCourse = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setValueSearchListCourse(event.target.value);
-  // };
-  // const handlSearchListAccount = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setValueSearchListAccount(event.target.value);
-  // };
   const searchListCourse = () => {
     (async () => {
       const { value: tenKhoaHoc } = await Swal.fire({
@@ -183,17 +156,7 @@ const OverView = () => {
       }
     })();
   };
-  const NotDataSearch = () => {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      showConfirmButton: false,
 
-      title: "Không dữ liệu",
-      text: "Thông tin bạn tìm kiếm không có trong hệ thống.",
-      timer: 2000,
-    });
-  };
   const ListCoursesGV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "GV");
   const ListCoursesHV = listAccount.filter((ac) => ac.maLoaiNguoiDung === "HV");
   const resultSearchAccountGV = ListCoursesGV.filter((account) =>
@@ -202,8 +165,6 @@ const OverView = () => {
   const resultSearchAccountHV = ListCoursesHV.filter((account) =>
     account.hoTen.toLocaleLowerCase().includes(valueSearchListAccountHV)
   );
-  // const listAccountsGV = resultSearchAccountGV;
-  // const listAccountsHV = resultSearchAccountHV;
   const listAccountsGV =
     resultSearchAccountGV.length > 0 ? resultSearchAccountGV : [];
   const listAccountsHV =
@@ -223,6 +184,7 @@ const OverView = () => {
     register,
     handleSubmit,
     resetField,
+    setError,
     formState: { errors },
   } = useForm<AddValueCourse>({
     defaultValues: {
@@ -233,19 +195,21 @@ const OverView = () => {
     // cấu hình validation bằng yup schema
     resolver: yupResolver(schema),
   });
-  const [dataMoTaCKeditor, setDataMoTaCKeditor] = useState();
 
   const onSubmit = (values: AddValueCourse) => {
     values.ngayTao = date;
-    values.moTa = dataMoTaCKeditor;
-
-    console.log(values);
-    handleResetForm();
-  };
-  const onChangeCKeditor = (event: any, editor: any) => {
-    const data = editor.getData();
-    setDataMoTaCKeditor(data);
-    console.log(data);
+    const data = {
+      ...values,
+      hinhAnh: values.hinhAnh[0],
+      ngayTao: date,
+    };
+    try {
+      console.log(data);
+      handleResetForm();
+      setShowAddCourseModal(false)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleResetForm = () => {
@@ -256,7 +220,6 @@ const OverView = () => {
     resetField("moTa");
     resetField("hinhAnh");
   };
-  //const date: string = startDate.toLocaleDateString("en-CA");
 
   return (
     <>
@@ -281,7 +244,11 @@ const OverView = () => {
                 placeholder="Vui lòng điền mã khóa học"
                 {...register("maKhoaHoc")}
               />
-              {errors.maKhoaHoc && <span>{errors.maKhoaHoc?.message}</span>}
+              {errors.maKhoaHoc && (
+                <span style={{ color: "red" }}>
+                  {errors.maKhoaHoc?.message}
+                </span>
+              )}
             </div>
             <div>
               <label>
@@ -292,7 +259,9 @@ const OverView = () => {
                 placeholder="Vui lòng điền bí danh"
                 {...register("biDanh")}
               />
-              {errors.biDanh && <span>{errors.biDanh?.message}</span>}
+              {errors.biDanh && (
+                <span style={{ color: "red" }}>{errors.biDanh?.message}</span>
+              )}
             </div>
             <div>
               <label>
@@ -303,7 +272,11 @@ const OverView = () => {
                 placeholder="Vui lòng điền tên khóa học"
                 {...register("tenKhoaHoc")}
               />
-              {errors.tenKhoaHoc && <span>{errors.tenKhoaHoc?.message}</span>}
+              {errors.tenKhoaHoc && (
+                <span style={{ color: "red" }}>
+                  {errors.tenKhoaHoc?.message}
+                </span>
+              )}
             </div>
 
             <div>
@@ -315,7 +288,9 @@ const OverView = () => {
                 placeholder="Vui lòng điền lượt xem"
                 {...register("luotXem")}
               />
-              {errors.luotXem && <span>{errors.luotXem?.message}</span>}
+              {errors.luotXem && (
+                <span style={{ color: "red" }}>{errors.luotXem?.message}</span>
+              )}
             </div>
             <div>
               <label>
@@ -328,7 +303,9 @@ const OverView = () => {
                 <option value={2}>2</option>
                 <option value={1}>1</option>
               </select>
-              {errors.danhGia && <span>{errors.danhGia?.message}</span>}
+              {errors.danhGia && (
+                <span style={{ color: "red" }}>{errors.danhGia?.message}</span>
+              )}
             </div>
             <div>
               <label>
@@ -340,7 +317,9 @@ const OverView = () => {
                 {...register("hinhAnh")}
               />
             </div>
-            {errors.hinhAnh && <span>{errors.hinhAnh?.message}</span>}
+            {errors.hinhAnh && (
+              <span style={{ color: "red" }}>{errors.hinhAnh?.message}</span>
+            )}
 
             <div>
               <label>
@@ -374,7 +353,9 @@ const OverView = () => {
                 <b>Mã Nhóm</b>
               </label>
               <input type="text" {...register("maNhom")} disabled></input>
-              {errors.maNhom && <span>{errors.maNhom?.message}</span>}
+              {errors.maNhom && (
+                <span style={{ color: "red" }}>{errors.maNhom?.message}</span>
+              )}
             </div>
             <div>
               <label>
@@ -387,38 +368,19 @@ const OverView = () => {
                 disabled
               />
               {errors.taiKhoanNguoiTao && (
-                <span>{errors.taiKhoanNguoiTao?.message}</span>
+                <span style={{ color: "red" }}>
+                  {errors.taiKhoanNguoiTao?.message}
+                </span>
               )}
             </div>
             <div>
               <label>
                 <b>Mô Tả</b>
               </label>
-              {/* <textarea rows={4} defaultValue={""} {...register("moTa")} /> */}
-              {/* {errors.moTa && <span>{errors.moTa?.message}</span>} */}
-              <CKEditor
-                editor={ClassicEditor}
-                config={config}
-                data=""
-                onReady={(editor: any) => {
-                  // You can store the "editor" and use when it is needed.
-                  // console.log(
-                  //   "Editor is ready to use!",
-                  //   editor,
-                  //   Array.from(editor.ui.componentFactory.names())
-                  // );
-                }}
-                {...register("moTa")}
-                onChange={(event: any, editor: any) =>
-                  onChangeCKeditor(event, editor)
-                }
-                onBlur={(event: any, editor: any) => {
-                  console.log("Blur.", editor);
-                }}
-                onFocus={(event: any, editor: any) => {
-                  console.log("Focus.", editor);
-                }}
-              />
+              <textarea rows={4} {...register("moTa")} />
+              {errors.moTa && (
+                <span style={{ color: "red" }}>{errors.moTa?.message}</span>
+              )}
             </div>
 
             <div className={stylesAddModal["gr-btn"]}>
@@ -502,7 +464,6 @@ const OverView = () => {
               : `${styles.sidebar}`
           }
         >
-          {/* ${styles.active} */}
           <ul className={styles["sidebar--items"]}>
             <li>
               <a href="#" id={styles["active--link"]}>
@@ -512,14 +473,7 @@ const OverView = () => {
                 <span className={styles["sidebar--item"]}>Tổng Quan</span>
               </a>
             </li>
-            {/* <li>
-            <a href="#">
-              <span className={`${styles.icon} ${styles["icon-2"]}`}>
-                <i className="fa fa-calendar-alt"></i>
-              </span>
-              <span className={styles["sidebar--item"]}>QUẢN LÝ NGƯỜI DÙNG</span>
-            </a>
-          </li> */}
+
             <li>
               <a href="#">
                 <span className={`${styles.icon} ${styles["icon-3"]}`}>

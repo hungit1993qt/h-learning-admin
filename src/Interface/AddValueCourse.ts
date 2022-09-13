@@ -2,10 +2,10 @@ export interface AddValueCourse {
   maKhoaHoc: string;
   biDanh: string;
   tenKhoaHoc: string;
-  moTa: any;
+  moTa: string;
   luotXem: number;
   danhGia: number;
-  hinhAnh: string;
+  hinhAnh: FileList;
   maNhom: string;
   ngayTao: string;
   maDanhMucKhoaHoc: string;

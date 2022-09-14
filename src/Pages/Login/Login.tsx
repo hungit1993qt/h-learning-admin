@@ -83,7 +83,7 @@ const Login = () => {
           <div>
             <label htmlFor="password">Mật Khẩu</label>
             <input
-              type="text"
+              type="password"
               placeholder="Vui lòng nhập mật khẩu!"
               {...register("matKhau", {
                 required: {

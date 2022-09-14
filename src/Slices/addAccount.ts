@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authAPI from "Services/authAPI";
 import Swal from "sweetalert2";
 import { AddValueAccount } from "../Interface/AddValueAccount";
-import { getListCourse } from "./showCourse";
+import { getListAccount } from "./auth";
 
 interface State {
   addValueAccount: AddValueAccount | null;
@@ -32,7 +32,7 @@ export const addAccount = createAsyncThunk(
         showConfirmButton: false,
         timer: 1500,
       });
-      dispatch(getListCourse(``));
+      dispatch(getListAccount());
       return data;
     } catch (error) {
       throw error;

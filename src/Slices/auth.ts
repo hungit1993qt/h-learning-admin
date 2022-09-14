@@ -36,7 +36,7 @@ export const login = createAsyncThunk(
           icon: "error",
           text: "Vui lòng nhập đúng thông tin",
           title: `${data}`,
-          footer: '<a href="register">Bạn chưa có tài khoản? tạo ngay</a>',
+          
         });
       }
 

@@ -98,9 +98,9 @@ const Login = () => {
               })}
               className={styles["box"]}
             />
-            {errors.taiKhoan && <span>{errors.taiKhoan?.message}</span>}
+            {errors.taiKhoan && <span style={{ color: "red" }}>{errors.taiKhoan?.message}</span>}
             <br />
-            {errors.matKhau && <span>{errors.matKhau?.message}</span>}
+            {errors.matKhau && <span style={{ color: "red" }}>{errors.matKhau?.message}</span>}
           </div>
           <button className={styles["loginBtn"]}>
             Đăng Nhập

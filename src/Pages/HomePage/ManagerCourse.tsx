@@ -423,7 +423,7 @@ const ManagerCourse = () => {
                     /> */}
                   Tìm kiếm
                 </th>
-                <th>Mã Khóa Học</th>
+                <th>Mã KHọc</th>
                 <th>Bí Danh</th>
 
                 <th>Mô Tả</th>

@@ -5,7 +5,7 @@ export interface AddValueCourse {
   moTa: string;
   luotXem: number;
   danhGia: number;
-  hinhAnh: FileList;
+  hinhAnh: FileList | null;
   maNhom: string;
   ngayTao: string;
   maDanhMucKhoaHoc: string;

@@ -12,12 +12,15 @@ const courseAPI = {
   addCourse: (khoaHoc: {}) => {
     return axiosClient.post("QuanLyKhoaHoc/ThemKhoaHocUploadHinh", khoaHoc);
   },
-  deleteCourse: (MaKhoahoc: any) => {
+  deleteCourse: (MaKhoahoc: string) => {
     return axiosClient.delete("QuanLyKhoaHoc/XoaKhoaHoc", {
-      params:{
-        MaKhoahoc:MaKhoahoc
-      }
+      params: {
+        MaKhoahoc: MaKhoahoc,
+      },
     });
+  },
+  editCourse: (khoaHoc: {}) => {
+    return axiosClient.post("QuanLyKhoaHoc/CapNhatKhoaHocUpload", khoaHoc);
   },
 };
 

@@ -19,7 +19,13 @@
     min-width: 370px;
     .container {
       padding: 16px;
-      .gr-one{
+      .inputHinhAnh {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .gr-one {
         display: flex;
       }
       input {
@@ -30,11 +36,22 @@
         border: 1px solid #ccc;
         box-sizing: border-box;
       }
-      input[type=file]{
-        width: 100%;
-        margin: 8px 0px;
+      input[type="file"] {
+        width: 89px;
+        padding:0;
+        background: #04aa6d;
+        //display: none;
       }
-      
+      .inputFile {
+        background-color: #04aa6d;
+        color: white;
+        padding: 14px 20px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
       // input.dayPicker{
       //   width: 20%;
       // }
@@ -46,13 +63,17 @@
         border: 1px solid #ccc;
         box-sizing: border-box;
       }
-      select{
+      select {
         padding: 6px 20px;
         margin: 8px 0px;
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
         width: 100%;
+      }
+      .imgInput {
+        width: 100px;
+        height: 100px;
       }
 
       /* Set a style for all buttons */
@@ -71,11 +92,11 @@
           cursor: pointer;
           width: 20%;
           margin: 5px;
-          &:nth-child(1){
+          &:nth-child(1) {
             background-color: red;
           }
-          &:nth-child(2){
-            background-color:coral;
+          &:nth-child(2) {
+            background-color: coral;
           }
         }
 

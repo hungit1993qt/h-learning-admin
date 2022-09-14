@@ -1,6 +1,4 @@
 import Banner from "./OverView";
-import MovieShowing from "./MovieShowing";
-import styles from "_Playground/SCSS/HomePage/HomePage.module.scss";
 
 type Props = {};
 

@@ -10,14 +10,26 @@ const authAPI = {
   },
   getListAccount: () => {
     // Khai báo hàm call API dữ liệu trả về là Movie[]
-    return axiosClient.get("QuanLyNguoiDung/TimKiemNguoiDung",{
-      params:{
+    return axiosClient.get("QuanLyNguoiDung/TimKiemNguoiDung", {
+      params: {
         // tuKhoa:tuKhoa
         //MaNhom:"GP01"
-      }
+      },
     });
   },
-  
+  addAccount: (account: {}) => {
+    return axiosClient.post("QuanLyNguoiDung/ThemNguoiDung", account);
+  },
+  deleteAccount: (TaiKhoan: string) => {
+    return axiosClient.delete("QuanLyNguoiDung/XoaNguoiDung", {
+      params: {
+        TaiKhoan: TaiKhoan,
+      },
+    });
+  },
+  editAccount: (account: {}) => {
+    return axiosClient.put("QuanLyNguoiDung/CapNhatThongTinNguoiDung", account);
+  },
 };
 
 export default authAPI;

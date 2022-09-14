@@ -784,10 +784,10 @@ const OverView = () => {
                     </th>
                     <th>Tài Khoản</th>
                     <th>Mật Khẩu</th>
-
                     <th>Email</th>
                     <th>SĐT</th>
                     <th>Cấp Bậc</th>
+                    <th></th>
                     <th></th>
                   </tr>
                 </thead>

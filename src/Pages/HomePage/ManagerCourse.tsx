@@ -128,7 +128,6 @@ const ManagerCourse = () => {
       }
     }
     if (isUpdateCourse) {
-      console.log("edit");
       try {
         console.log(formData.get("hinhAnh"));
         dispatch(editCourse(formData));
@@ -422,10 +421,10 @@ const ManagerCourse = () => {
                       name=""
                       id=""
                     /> */}
-                  Click tìm kiếm ...
+                  Tìm kiếm
                 </th>
                 <th>Mã Khóa Học</th>
-                {/* <th>Bí Danh</th> */}
+                <th>Bí Danh</th>
 
                 <th>Mô Tả</th>
                 {/* <th>Lượt Xem</th> */}
@@ -433,6 +432,7 @@ const ManagerCourse = () => {
                 {/* <th>Ngày Tạo</th> */}
                 {/* <th>Danh Mục </th> */}
                 {/* <th>Người Tạo</th> */}
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -442,39 +442,37 @@ const ManagerCourse = () => {
                   <tr key={Course.maKhoaHoc}>
                     <td>{Course.tenKhoaHoc}</td>
                     <td>
-                      <i
+                      {Course.maKhoaHoc}
+                      {/* <i
                         onClick={() =>
                           Swal.fire(`Mã khóa học: ${Course.maKhoaHoc}`)
                         }
                         style={{ cursor: "pointer" }}
                         className="fa fa-eye-slash"
-                      ></i>
+                      ></i> */}
                     </td>
-                    {/* <td>
-                          <i
-                            onClick={() =>
-                              Swal.fire(`Bí danh: ${Course.biDanh}`)
-                            }
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-eye-slash"
-                          ></i>
-                        </td> */}
+                    <td>
+                      {Course.biDanh}
+                      {/* <i
+                        onClick={() => Swal.fire(`Bí danh: ${Course.biDanh}`)}
+                        style={{ cursor: "pointer" }}
+                        className="fa fa-eye-slash"
+                      ></i> */}
+                    </td>
                     <td>
                       <i
                         onClick={() => Swal.fire(`Mô tả: ${Course.moTa}`)}
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "pointer" ,width:80}}
                         className="fa fa-eye-slash"
                       ></i>
                     </td>
                     {/* <td className={styles["pending"]}>
-                          <i
-                            onClick={() =>
-                              Swal.fire(`Mô tả: ${Course.luotXem}`)
-                            }
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-eye-slash"
-                          ></i>
-                        </td> */}
+                      <i
+                        onClick={() => Swal.fire(`Mô tả: ${Course.luotXem}`)}
+                        style={{ cursor: "pointer" }}
+                        className="fa fa-eye-slash"
+                      ></i>
+                    </td> */}
 
                     <td>
                       <i
@@ -534,6 +532,10 @@ const ManagerCourse = () => {
                           onClick={() => handleEditCourse(Course)}
                           className={`fa fa-edit ${styles.edit}`}
                         ></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span>
                         <i
                           onClick={() => handleDeleteCourse(Course.maKhoaHoc)}
                           className={`fa fa-trash ${styles.delete}`}

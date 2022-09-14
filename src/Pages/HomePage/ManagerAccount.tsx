@@ -303,7 +303,7 @@ const ManagerAccount = () => {
           <table>
             <thead>
               <tr>
-                <th onClick={() => searchListAccount()}>
+                <th  onClick={() => searchListAccount()}>
                   {/* <input
                       placeholder="Tìm tên..."
                       className={styles.inputSearch}
@@ -312,14 +312,15 @@ const ManagerAccount = () => {
                       name=""
                       id=""
                     /> */}
-                  Click tìm kiếm ...
+                  Tìm kiếm
                 </th>
                 <th>Tài Khoản</th>
-                <th>Mật Khẩu</th>
+                <th style={{ width:90}}>Mật Khẩu</th>
 
                 <th>Email</th>
                 <th>SĐT</th>
-                <th>Cấp Bậc</th>
+                <th style={{ width:100}}>Cấp Bậc</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -331,23 +332,32 @@ const ManagerAccount = () => {
                     <td>{Account.taiKhoan}</td>
                     <td>
                       <i
+                      
                         onClick={() =>
                           Swal.fire(`Mật khẩu: ${Account.matKhau}`)
                         }
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "pointer", width:80 }}
                         className="fa fa-eye-slash"
                       ></i>
                     </td>
 
                     <td>
-                      {" "}
+                     
                       <i
                         onClick={() => Swal.fire(`Email: ${Account.email}`)}
                         style={{ cursor: "pointer" }}
                         className="fa fa-eye-slash"
                       ></i>
                     </td>
-                    <td>{Account.soDt}</td>
+                    <td>
+                     
+                      <i
+                        onClick={() => Swal.fire(`Email: ${Account.soDt}`)}
+                        style={{ cursor: "pointer" }}
+                        className="fa fa-eye-slash"
+                      ></i>
+                    </td>
+                    {/* <td>{Account.soDt}</td> */}
                     <td className={styles["pending"]}>
                       {Account.tenLoaiNguoiDung}
                     </td>
@@ -358,6 +368,10 @@ const ManagerAccount = () => {
                           onClick={() => handleEditAccount(Account)}
                           className={`fa fa-edit ${styles.edit}`}
                         ></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span>
                         <i
                           onClick={() => handleDeleteAccount(Account.taiKhoan)}
                           className={`fa fa-trash ${styles.delete}`}

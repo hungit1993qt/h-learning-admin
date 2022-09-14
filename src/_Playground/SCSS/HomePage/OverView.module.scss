@@ -164,7 +164,7 @@ a {
   border-radius: 20px;
   min-width: 230px;
   height: auto;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .card:hover {
@@ -215,7 +215,7 @@ a {
 }
 
 .card-1 {
-  background-color: rgba(80, 115, 251, .1);
+  background-color: rgba(80, 115, 251, 0.1);
 }
 
 .card-1 .card--title {
@@ -223,11 +223,11 @@ a {
 }
 
 .card-1 .card--icon--lg {
-  color: rgba(80, 115, 251, .4);
+  color: rgba(80, 115, 251, 0.4);
 }
 
 .card-2 {
-  background-color: rgba(241, 210, 67, .1);
+  background-color: rgba(241, 210, 67, 0.1);
 }
 
 .card-2 .card--title {
@@ -235,11 +235,11 @@ a {
 }
 
 .card-2 .card--icon--lg {
-  color: rgba(241, 210, 67, .4);
+  color: rgba(241, 210, 67, 0.4);
 }
 
 .card-3 {
-  background-color: rgba(112, 215, 165, .1);
+  background-color: rgba(112, 215, 165, 0.1);
 }
 
 .card-3 .card--title {
@@ -247,11 +247,11 @@ a {
 }
 
 .card-3 .card--icon--lg {
-  color: rgba(112, 215, 165, .4);
+  color: rgba(112, 215, 165, 0.4);
 }
 
 .card-4 {
-  background-color: rgba(227, 106, 200, .1);
+  background-color: rgba(227, 106, 200, 0.1);
 }
 
 .card-4 .card--title {
@@ -259,7 +259,7 @@ a {
 }
 
 .card-4 .card--icon--lg {
-  color: rgba(227, 106, 200, .4);
+  color: rgba(227, 106, 200, 0.4);
 }
 
 /* doctors */
@@ -271,17 +271,16 @@ a {
 }
 
 .add {
-  font-size: 0.8rem;
+  background-color: #04aa6d;
   display: flex;
   align-items: center;
-  padding: 3px 3px;
+  padding: 5px 10px;
   outline: none;
   border: none;
-  background-color: #04aa6d;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 .add:hover {
@@ -289,34 +288,13 @@ a {
 }
 
 .add i {
-  margin-right: 5px;
-  padding: 2px;
+  margin-right: 10px;
+  padding: 5px;
   background-color: #fff;
   border-radius: 50%;
   color: #000;
-  font-size: 0.6rem;
 }
 
-.doctors--cards {
-  display: flex;
-  gap: 20px;
-}
-
-.doctor--card {
-  padding: 20px;
-  border-radius: 20px;
-  height: auto;
-  transition: 0.2s;
-  border: 2px solid #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.8rem;
-}
-
-.doctor--card:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
 
 .img--box--cover {
   border: 1px solid #04aa6d;
@@ -363,24 +341,22 @@ a {
 
 table {
   width: 100%;
-  text-align: center;
+
   border-collapse: collapse;
 }
 
 tr {
   border-bottom: 1px solid #f1f1f1;
 }
-td {
-  font-size: 1rem;
-}
+
 th {
   font-size: 1rem;
   position: sticky;
   top: 0px;
   background-color: #04aa6d;
-  color: #f1f4f8;
-  padding: 5px;
-  width: auto;
+  color: #fff;
+ 
+  text-align: center;
   &:first-child {
     border-radius: 5px 0 0 5px;
   }
@@ -388,7 +364,10 @@ th {
     border-radius: 0 5px 5px 0;
   }
 }
-
+td {
+  text-align: center;
+  
+}
 td,
 th {
   padding-block: 10px;
@@ -499,11 +478,18 @@ th {
 }
 
 @media screen and (max-width: 450px) {
-  .doctor--filter {
-    display: none;
-  }
   .main--content {
     padding: 0 10px;
+    td,
+    th {
+      padding-block: 5px;
+    }
+    td {
+    }
+    th {
+      padding: 5px;
+      font-size: 1rem;
+    }
   }
   .logo {
     padding-left: 10px;
